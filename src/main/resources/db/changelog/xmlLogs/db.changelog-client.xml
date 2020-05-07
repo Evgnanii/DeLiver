@@ -1,0 +1,26 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <changeSet id="1" author="evgnanii">
+        <createTable tableName="clients">
+            <column name="client_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="client_name" type="varchar(50)"/>
+            <column name="client_email" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_phone_number" type="varchar(200)"/>
+            <column name="client_address" type="varchar(200)"></column>
+            <column name="privilege_level" type="varchar(15)"></column>
+            <column name="date_of_birth" type="DATE"></column>
+        </createTable>
+    </changeSet>
+
+
+</databaseChangeLog>
