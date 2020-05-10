@@ -17,6 +17,27 @@
             <column name="comment_type" type="varchar(15)"></column>
         </createTable>
     </changeSet>
+    <changeSet id="2" author="evgnanii">
+        <insert tableName="comments">
+            <column name="client_id" value="2"/>
+            <column name="comment_text" value="Очень вкусно!"/>
+            <column name="comment_rating" value="4.12"/>
+            <column name="comment_type" value="PRODUCT"/>
+        </insert>
+        <insert tableName="comments">
+            <column name="client_id" value="2"/>
+            <column name="comment_text" value="Хороший ресторан!"/>
+            <column name="comment_rating" value="3.00"/>
+            <column name="comment_type" value="RESTAURANT"/>
+        </insert>
+        <insert tableName="comments">
+            <column name="client_id" value="1"/>
+            <column name="comment_text" value="Гадость!"/>
+            <column name="comment_rating" value="2.2"/>
+            <column name="comment_type" value="PRODUCT"/>
+
+        </insert>
+    </changeSet>
 
 
 </databaseChangeLog>

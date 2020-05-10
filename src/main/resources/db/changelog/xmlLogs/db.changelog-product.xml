@@ -22,6 +22,44 @@
             <column name="commentary_id" type="BIGINT"></column>
         </createTable>
     </changeSet>
+    <changeSet id="1" author="evgnanii">
+        <insert tableName="products">
+            <column name="product_name" value="Пицца Маргарита"/>
+            <column name="restaurant_id" value="1"/>
+            <column name="product_cost" value="500"/>
+            <column name="product_rating" value="5.0"/>
+            <column name="product_weight" value="1000g"/>
+            <column name="discount" value="10"/>
+            <column name="commentary_id" value="1"/>
+        </insert>
+        <insert tableName="products">
+            <column name="product_name" value="Паста с сыром"/>
+            <column name="restaurant_id" value="1"/>
+            <column name="product_cost" value="300"/>
+            <column name="product_rating" value="4.7"/>
+            <column name="product_weight" value="300g"/>
+            <column name="discount" value="0"/>
+            <column name="commentary_id" value="2"/>
+        </insert>
+        <insert tableName="products">
+            <column name="product_name" value="Гамбургер"></column>
+            <column name="product_cost" value="200"/>
+            <column name="restaurant_id" value="2"/>
+            <column name="product_rating" value="3.2"/>
+            <column name="product_weight" value="150g"/>
+            <column name="discount" value="25"/>
+            <column name="commentary_id" value="3"/>
+        </insert>
+        <insert tableName="products">
+            <column name="product_name" value="Драники"/>
+            <column name="restaurant_id" value="3"/>
+            <column name="product_cost" value="300"/>
+            <column name="product_rating" value="5.0"/>
+            <column name="product_weight" value="600g"/>
+            <column name="discount" value="35"/>
+            <column name="commentary_id" value="5"/>
+        </insert>
+    </changeSet>
 
 
 </databaseChangeLog>

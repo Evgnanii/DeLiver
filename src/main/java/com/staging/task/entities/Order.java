@@ -5,8 +5,29 @@ import javax.persistence.*;
 @Entity
 @Table(name = "orders")
 public class Order {
-    public Order() {
-    }
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_id")
+    private Long orderId;
+    @ManyToOne
+    @JoinColumn(name = "courier_id")
+    private Courier courier;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
+    @ManyToOne
+    @JoinColumn(name = "basket_id")
+    private Basket basket_id;
+    @Column(name = "total_cost")
+    private Double totalCost;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_status")
+    private OrderStatus orderStatus;
 
     public Long getOrderId() {
         return orderId;
@@ -16,35 +37,35 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public Long getCourierId() {
-        return courierId;
+    public Courier getCourier() {
+        return courier;
     }
 
-    public void setCourierId(Long courierId) {
-        this.courierId = courierId;
+    public void setCourier(Courier courier) {
+        this.courier = courier;
     }
 
-    public Long getClientId() {
-        return clientId;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClientId(Long clientId) {
-        this.clientId = clientId;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public Long getRestaurantId() {
-        return restaurantId;
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
-    public void setRestaurantId(Long restaurantId) {
-        this.restaurantId = restaurantId;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
-    public Long getBasket_id() {
+    public Basket getBasket_id() {
         return basket_id;
     }
 
-    public void setBasket_id(Long basket_id) {
+    public void setBasket_id(Basket basket_id) {
         this.basket_id = basket_id;
     }
 
@@ -64,23 +85,6 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
-    private Long orderId;
-    @Column(name = "courier_id")
-    private Long courierId;
-    @Column(name = "client_id")
-    private Long clientId;
-    @Column(name = "restaurant_id")
-    private Long restaurantId;
-    @Column(name = "basket_id")
-    private Long basket_id;
-    @Column(name = "total_cost")
-    private Double totalCost;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "order_status")
-    private OrderStatus orderStatus;
-
-
+    public Order() {
+    }
 }

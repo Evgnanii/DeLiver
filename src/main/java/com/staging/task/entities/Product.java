@@ -1,7 +1,9 @@
 package com.staging.task.entities;
 
 import javax.persistence.*;
-
+import java.util.HashSet;
+import java.util.Set;
+@Entity
 @Table(name = "products")
 public class Product {
     @Id
@@ -16,88 +18,13 @@ public class Product {
     private Double productRating;
     @Column(name = " product_weight")
     private String productWeight;
-    @Column(name = "restaurant_id")
-    private Long restaurantId;
-    @Column (name = "commentary_id")
-    private Long commentaryId;
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
+    @OneToMany(mappedBy="commentary_list_id")
+    private Set<CommentList> commentLists;
     @Column(name = "discount")
     private Long discount;
-    public Long getCommentaryId() {
-        return commentaryId;
-    }
-
-    public void setCommentaryId(Long commentaryId) {
-        this.commentaryId = commentaryId;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public Double getCost() {
-        return cost;
-    }
-
-    public void setCost(Double cost) {
-        this.cost = cost;
-    }
-
-    public Double getProductRating() {
-        return productRating;
-    }
-
-    public void setProductRating(Double productRating) {
-        this.productRating = productRating;
-    }
-
-    public String getProductWeight() {
-        return productWeight;
-    }
-
-    public void setProductWeight(String productWeight) {
-        this.productWeight = productWeight;
-    }
-
-    public Long getRestaurantId() {
-        return restaurantId;
-    }
-
-    public void setRestaurantId(Long restaurantId) {
-        this.restaurantId = restaurantId;
-    }
-
-    public Long getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Long discount) {
-        this.discount = discount;
-    }
-
-    public Product() {
-    }
-
-    public Product(String productName, Double cost, Double productRating, String productWeight, Long restaurantId, Long commentaryId, Long discount) {
-        this.productName = productName;
-        this.cost = cost;
-        this.productRating = productRating;
-        this.productWeight = productWeight;
-        this.restaurantId = restaurantId;
-        this.commentaryId = commentaryId;
-        this.discount = discount;
-    }
 
 
 }

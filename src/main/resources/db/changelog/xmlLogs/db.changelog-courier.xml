@@ -17,6 +17,26 @@
             <column name="courier_status" type="varchar(15)"></column>
         </createTable>
     </changeSet>
+    <changeSet id="1" author="evgnanii">
+        <insert tableName="couriers">
+            <column name="courier_first_name" value="Depp"/>
+            <column name="courier_first_name" value="John"/>
+            <column name="courier_rating" value="5.0"></column>
+            <column name="courier_status" value="READY"></column>
+        </insert>
+        <insert tableName="couriers">
+            <column name="courier_first_name" value="Ivanov"/>
+            <column name="courier_first_name" value="Ivan"/>
+            <column name="courier_rating" value="2.2"></column>
+            <column name="courier_status" value="ONORDER"></column>
+        </insert>
+        <insert tableName="couriers">
+            <column name="courier_first_name" value="Glebov"/>
+            <column name="courier_first_name" value="Gleb"/>
+            <column name="courier_rating" value="4.4"></column>
+            <column name="courier_status" value="ONORDER"></column>
+        </insert>
+    </changeSet>
 
 
 </databaseChangeLog>

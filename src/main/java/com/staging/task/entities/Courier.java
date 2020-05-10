@@ -2,49 +2,14 @@ package com.staging.task.entities;
 
 import javax.persistence.*;
 import java.sql.Date;
-
 @Entity
 @Table(name = "couriers")
 public class Courier {
 
-
-    public Long getCourierId() {
-        return courierId;
-    }
-
-    public void setCourierId(Long courierId) {
-        this.courierId = courierId;
-    }
-
-    public String getCourierFirstName() {
-        return courierFirstName;
-    }
-
-    public void setCourierFirstName(String courierFirstName) {
+    public Courier(String courierFirstName, String courierSecondName, Double courierRating, CourierStatus courierStatus) {
         this.courierFirstName = courierFirstName;
-    }
-
-    public String getCourierSecondName() {
-        return courierSecondName;
-    }
-
-    public void setCourierSecondName(String courierSecondName) {
         this.courierSecondName = courierSecondName;
-    }
-
-    public Double getCourierRating() {
-        return courierRating;
-    }
-
-    public void setCourierRating(Double courierRating) {
         this.courierRating = courierRating;
-    }
-
-    public CourierStatus getCourierStatus() {
-        return courierStatus;
-    }
-
-    public void setCourierStatus(CourierStatus courierStatus) {
         this.courierStatus = courierStatus;
     }
 

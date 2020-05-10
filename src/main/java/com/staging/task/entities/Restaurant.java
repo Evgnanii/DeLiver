@@ -3,6 +3,7 @@ package com.staging.task.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "restaurants")
@@ -22,8 +23,7 @@ public class Restaurant {
     private String restaurantAddress;
     @Column(name = "rating")
     private Double rating;
-    @Column(name = "commentary_id")
-    private Long commentaryId;
-
+    @OneToMany(mappedBy="commentary_list_od")
+    private Set<CommentList> commentLists;
 
 }
