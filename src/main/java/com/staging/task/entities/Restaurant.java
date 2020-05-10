@@ -23,7 +23,74 @@ public class Restaurant {
     private String restaurantAddress;
     @Column(name = "rating")
     private Double rating;
-    @OneToMany(mappedBy="commentary_list_od")
+    @OneToMany(mappedBy="restaurant")
     private Set<CommentList> commentLists;
 
+    public Restaurant(String restaurantName, KitchenType restaurantKitchenType, String restaurantPhoneNumber, String restaurantAddress, Double rating, Set<CommentList> commentLists) {
+        this.restaurantName = restaurantName;
+        this.restaurantKitchenType = restaurantKitchenType;
+        this.restaurantPhoneNumber = restaurantPhoneNumber;
+        this.restaurantAddress = restaurantAddress;
+        this.rating = rating;
+        this.commentLists = commentLists;
+    }
+
+    public Restaurant() {
+    }
+
+    public Long getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(Long restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
+    }
+
+    public KitchenType getRestaurantKitchenType() {
+        return restaurantKitchenType;
+    }
+
+    public void setRestaurantKitchenType(KitchenType restaurantKitchenType) {
+        this.restaurantKitchenType = restaurantKitchenType;
+    }
+
+    public String getRestaurantPhoneNumber() {
+        return restaurantPhoneNumber;
+    }
+
+    public void setRestaurantPhoneNumber(String restaurantPhoneNumber) {
+        this.restaurantPhoneNumber = restaurantPhoneNumber;
+    }
+
+    public String getRestaurantAddress() {
+        return restaurantAddress;
+    }
+
+    public void setRestaurantAddress(String restaurantAddress) {
+        this.restaurantAddress = restaurantAddress;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public Set<CommentList> getCommentLists() {
+        return commentLists;
+    }
+
+    public void setCommentLists(Set<CommentList> commentLists) {
+        this.commentLists = commentLists;
+    }
 }

@@ -1,6 +1,7 @@
 package com.staging.task.entities;
 
 import javax.persistence.*;
+
 @Entity
 @Table(name = "comment_list")
 public class CommentList {
@@ -8,9 +9,16 @@ public class CommentList {
     @GeneratedValue
     @Column(name = "comment_list_id")
     private Long commentListId;
-    @Column(name = "commentary_type")
+    @Column(name = "comment_type")
     @Enumerated(EnumType.STRING)
     CommentType commentType;
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = true)
+    private Product product;
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id", nullable = true)
+    private Restaurant restaurant;
+
 
     public CommentList() {
     }
