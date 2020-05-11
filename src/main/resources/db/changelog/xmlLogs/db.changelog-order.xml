@@ -44,6 +44,29 @@
             <column name="status" value="ONREST"></column>
             <column name="total_cost" value="1200"></column>
         </insert>
+
+    </changeSet>
+    <changeSet id="3" author="evgnanii">
+        <addForeignKeyConstraint baseColumnNames="courier_id"
+                                 baseTableName="orders"
+                                 constraintName="fk_order_courier_id"
+                                 referencedColumnNames="courier_id"
+                                 referencedTableName="couriers"/>
+        <addForeignKeyConstraint baseColumnNames="restaurant_id"
+                                 baseTableName="orders"
+                                 constraintName="fk_order_restaurant_id"
+                                 referencedColumnNames="restaurant_id"
+                                 referencedTableName="restaurants"/>
+        <addForeignKeyConstraint baseColumnNames="client_id"
+                                 baseTableName="orders"
+                                 constraintName="fk_order_client_id"
+                                 referencedColumnNames="client_id"
+                                 referencedTableName="clients"/>
+        <addForeignKeyConstraint baseColumnNames="basket_id"
+                                 baseTableName="orders"
+                                 constraintName="fk_order_basket_id"
+                                 referencedColumnNames="basket_id"
+                                 referencedTableName="baskets"/>
     </changeSet>
 
 

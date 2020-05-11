@@ -6,6 +6,7 @@
         xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <include file="db/changelog/xmlLogs/db.changelog-basket.xml"></include>
 
     <include file="db/changelog/xmlLogs/db.changelog-client.xml"></include>
     <include file="db/changelog/xmlLogs/db.changelog-product.xml"></include>
@@ -13,7 +14,7 @@
     <include file="db/changelog/xmlLogs/db.changelog-courier.xml"></include>
     <include file="db/changelog/xmlLogs/db.changelog-order.xml"></include>
     <include file="db/changelog/xmlLogs/db.changelog-comment.xml"></include>
-    <include file="db/changelog/xmlLogs/db.changelog-basket.xml"></include>
+
 
 
 </databaseChangeLog>
