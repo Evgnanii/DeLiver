@@ -1,4 +1,4 @@
-package com.staging.task.entities;
+package com.staging.task.core.entities;
 
 public enum OrderStatus {
     ONREST, ONPATH, COMPLETE

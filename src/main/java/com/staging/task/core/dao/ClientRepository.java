@@ -1,6 +1,6 @@
-package com.staging.task.dao;
+package com.staging.task.core.dao;
 
-import com.staging.task.entities.Client;
+import com.staging.task.core.entities.Client;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

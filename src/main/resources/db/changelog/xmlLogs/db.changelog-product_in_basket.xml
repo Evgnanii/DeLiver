@@ -17,22 +17,22 @@
             <column name="basket_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="count">
+            <column name="count" type="int">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
     <changeSet id="2" author="evgnanii">
-        <addForeignKeyConstraint baseColumnNames="courier_id"
+        <addForeignKeyConstraint baseColumnNames="basket_id"
                                  baseTableName="products_in_basket"
-                                 constraintName="fk_order_courier_id"
-                                 referencedColumnNames="courier_id"
-                                 referencedTableName="couriers"/>
-        <addForeignKeyConstraint baseColumnNames="restaurant_id"
+                                 constraintName="fk_product_in_basket_id_basket_id"
+                                 referencedColumnNames="basket_id"
+                                 referencedTableName="baskets"/>
+        <addForeignKeyConstraint baseColumnNames="product_id"
                                  baseTableName="products_in_basket"
-                                 constraintName="fk_order_restaurant_id"
-                                 referencedColumnNames="restaurant_id"
-                                 referencedTableName="restaurants"/>
+                                 constraintName="fk_product_in_basket_id_product_id"
+                                 referencedColumnNames="product_id"
+                                 referencedTableName="products"/>
     </changeSet>
 
 </databaseChangeLog>

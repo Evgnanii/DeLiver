@@ -6,7 +6,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
 
-    <changeSet id="4" author="evgnanii">
+    <changeSet id="1" author="evgnanii">
         <createTable tableName="couriers">
             <column name="courier_id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -17,7 +17,7 @@
             <column name="courier_status" type="varchar(15)"></column>
         </createTable>
     </changeSet>
-    <changeSet id="1" author="evgnanii">
+    <changeSet id="2" author="evgnanii">
         <insert tableName="couriers">
             <column name="courier_first_name" value="Depp"/>
             <column name="courier_first_name" value="John"/>

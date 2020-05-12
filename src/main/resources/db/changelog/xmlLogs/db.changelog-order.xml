@@ -6,7 +6,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
 
-    <changeSet id="4" author="evgnanii">
+    <changeSet id="1" author="evgnanii">
         <createTable tableName="orders">
             <column name="order_id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
