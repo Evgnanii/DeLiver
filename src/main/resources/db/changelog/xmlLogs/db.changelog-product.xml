@@ -6,7 +6,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
 
-    <changeSet id="2" author="evgnanii">
+    <changeSet id="1" author="evgnanii">
         <createTable tableName="products">
             <column name="product_id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -19,8 +19,48 @@
             <column name="product_rating" type="double"></column>
             <column name="product_weight" type="varchar(50)"></column>
             <column name="discount" type="double"></column>
-            <column name="commentary_id" type="BIGINT"></column>
         </createTable>
+    </changeSet>
+    <changeSet id="2" author="evgnanii">
+        <insert tableName="products">
+            <column name="product_name" value="Пицца Маргарита"/>
+            <column name="restaurant_id" value="1"/>
+            <column name="product_cost" value="500"/>
+            <column name="product_rating" value="5.0"/>
+            <column name="product_weight" value="1000g"/>
+            <column name="discount" value="10"/>
+
+        </insert>
+        <insert tableName="products">
+            <column name="product_name" value="Паста с сыром"/>
+            <column name="restaurant_id" value="1"/>
+            <column name="product_cost" value="300"/>
+            <column name="product_rating" value="4.7"/>
+            <column name="product_weight" value="300g"/>
+            <column name="discount" value="0"/>
+
+        </insert>
+        <insert tableName="products">
+            <column name="product_name" value="Гамбургер"></column>
+            <column name="product_cost" value="200"/>
+            <column name="restaurant_id" value="2"/>
+            <column name="product_rating" value="3.2"/>
+            <column name="product_weight" value="150g"/>
+            <column name="discount" value="25"/>
+        </insert>
+        <insert tableName="products">
+            <column name="product_name" value="Драники"/>
+            <column name="restaurant_id" value="3"/>
+            <column name="product_cost" value="300"/>
+            <column name="product_rating" value="5.0"/>
+            <column name="product_weight" value="600g"/>
+            <column name="discount" value="35"/>
+        </insert>
+    </changeSet>
+    <changeSet id="3" author="evgnanii">
+        <addForeignKeyConstraint baseTableName="products" baseColumnNames="restaurant_id"
+                                 constraintName="fk_product_restaurant" referencedTableName="restaurants"
+                                 referencedColumnNames="restaurant_id"></addForeignKeyConstraint>
     </changeSet>
 
 

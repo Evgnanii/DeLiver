@@ -1,8 +1,8 @@
-package com.staging.task.controllers;
+package com.staging.task.rest.controllers;
 
 
-import com.staging.task.dao.ClientRepository;
-import com.staging.task.entities.Client;
+import com.staging.task.core.dao.ClientRepository;
+import com.staging.task.core.entities.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
