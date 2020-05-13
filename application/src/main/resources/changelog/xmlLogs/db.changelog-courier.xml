@@ -1,0 +1,40 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+    <changeSet id="1" author="evgnanii">
+        <createTable tableName="couriers">
+            <column name="courier_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="courier_first_name" type="varchar(50)"/>
+            <column name="courier_second_name" type="varchar(50)"/>
+            <column name="courier_rating" type="double"/>
+            <column name="courier_status" type="varchar(15)"></column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="evgnanii">
+        <insert tableName="couriers">
+            <column name="courier_first_name" value="Depp"/>
+            <column name="courier_first_name" value="John"/>
+            <column name="courier_rating" value="5.0"></column>
+            <column name="courier_status" value="READY"></column>
+        </insert>
+        <insert tableName="couriers">
+            <column name="courier_first_name" value="Ivanov"/>
+            <column name="courier_first_name" value="Ivan"/>
+            <column name="courier_rating" value="2.2"></column>
+            <column name="courier_status" value="ONORDER"></column>
+        </insert>
+        <insert tableName="couriers">
+            <column name="courier_first_name" value="Glebov"/>
+            <column name="courier_first_name" value="Gleb"/>
+            <column name="courier_rating" value="4.4"></column>
+            <column name="courier_status" value="ONORDER"></column>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>

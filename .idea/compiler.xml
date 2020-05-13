@@ -9,11 +9,9 @@
         <module name="core" />
         <module name="api" />
         <module name="rest" />
+        <module name="application" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="application" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
