@@ -6,8 +6,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = "java")
-@EnableAutoConfiguration
+@ComponentScan(basePackages = "by.st.deliver.rest.controllers")
+//@EnableAutoConfiguration
 public class RestConfiguration {
 
 

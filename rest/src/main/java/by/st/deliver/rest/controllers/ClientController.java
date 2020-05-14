@@ -14,8 +14,14 @@ public class ClientController {
     @Autowired
     ClientRepository clientRepository;
 
+    @GetMapping("/hello")
+    public String alllients() {
+        return "hello";
+    }
+
     @GetMapping("/user/all")
-    public List<Client> allClients() {
+    public List<Client> allClients()
+    {
         return clientRepository.findAll();
     }
 }
