@@ -8,21 +8,12 @@
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-<!--    <groupId>com.staging</groupId>-->
     <artifactId>application</artifactId>
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>com.staging</groupId>-->
-<!--            <artifactId>rest</artifactId>-->
-<!--            <version>1.0</version>-->
-<!--            <scope>compile</scope>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>com.staging.deliver</groupId>
             <artifactId>rest</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>
-
-
 </project>
