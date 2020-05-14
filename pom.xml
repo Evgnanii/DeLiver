@@ -17,13 +17,25 @@
             </plugins>
         </pluginManagement>
     </build>
+    <profiles>
+        <profile>
+            <id>liquibase-update</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.liquibase</groupId>
+                        <artifactId>liquibase-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <modules>
         <module>api</module>
         <module>core</module>
         <module>rest</module>
         <module>application</module>
-        <module>ert</module>
     </modules>
     <dependencies>
         <dependency>

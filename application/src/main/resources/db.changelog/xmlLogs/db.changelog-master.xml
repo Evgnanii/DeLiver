@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <include file="db.changelog\xmlLogs\db.changelog-basket.xml"></include>
+
+    <include file="db.changelog/xmlLogs/db.changelog-client.xml"></include>
+    <include file="db.changelog/xmlLogs/db.changelog-restaurant.xml"></include>
+    <include file="db.changelog/xmlLogs/db.changelog-product.xml"></include>
+
+    <include file="db.changelog/xmlLogs/db.changelog-courier.xml"></include>
+    <include file="db.changelog/xmlLogs/db.changelog-order.xml"></include>
+    <include file="db.changelog/xmlLogs/db.changelog-comment.xml"></include>
+    <include file="db.changelog\xmlLogs\db.changelog-product_in_basket.xml"></include>
+
+
+
+</databaseChangeLog>

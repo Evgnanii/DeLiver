@@ -14,25 +14,12 @@
         <artifactId>deliver</artifactId>
         <groupId>com.staging.deliver</groupId>
         <version>1.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
     <groupId>com.staging</groupId>
     <artifactId>rest</artifactId>
     <version>1.0</version>
     <name>rest</name>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>
