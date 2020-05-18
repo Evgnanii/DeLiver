@@ -15,7 +15,6 @@
     <include file="db.changelog/xmlLogs/db.changelog-order.xml"/>
     <include file="db.changelog/xmlLogs/db.changelog-comment.xml"/>
     <include file="db.changelog\xmlLogs\db.changelog-product_in_basket.xml"/>
-
-
-
+    <include file="db.changelog\xmlLogs\db.changelog-role.xml"></include>
+    <include file="db.changelog\xmlLogs\db.changelog-user.xml"></include>
 </databaseChangeLog>

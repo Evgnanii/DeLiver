@@ -19,7 +19,7 @@ public class ClientController {
         return "hello";
     }
 
-    @GetMapping("/user/all")
+    @GetMapping("/clients/all")
     public List<Client> allClients()
     {
         return clientRepository.findAll();
