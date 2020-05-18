@@ -3,7 +3,7 @@ package by.st.deliver.core.services;
 import by.st.deliver.core.dao.UserRepository;
 import by.st.deliver.core.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import services.UserService;
+
 
 public class UserServiceImpl implements UserService {
     @Autowired
