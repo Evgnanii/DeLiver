@@ -1,0 +1,28 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="evgnanii">
+        <createTable tableName="baskets">
+            <column name="basket_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="basket_total_cost" type="double"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="evgnanii">
+        <insert tableName="baskets">
+            <column name="basket_id" value="3"></column>
+            <column name="basket_total_cost" value="3200"></column>
+        </insert>
+        <insert tableName="baskets">
+            <column name="basket_id" value="1"></column>
+            <column name="basket_total_cost" value="10000"></column>
+        </insert>
+        <insert tableName="baskets">
+            <column name="basket_id" value="2"></column>
+            <column name="basket_total_cost" value="1200"></column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

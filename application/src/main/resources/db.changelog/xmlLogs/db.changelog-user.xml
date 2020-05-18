@@ -1,0 +1,36 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="1" author="evgnanii">
+        <createTable tableName="usr">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"></constraints>
+            </column>
+            <column name="user_name" type="varchar(100)"></column>
+            <column name="password" type="varchar(100)"></column>
+            <column name="role_id" type="BIGINT"></column>
+        </createTable>
+        <insert tableName="usr">
+            <column name="user_id" value="1"></column>
+            <column name="user_name" value="Evgnanii"></column>
+            <column name="role_id" value="1"></column>
+            <column name="password" value="Evgnanii"></column>
+        </insert>
+        <insert tableName="usr">
+            <column name="user_id" value="2"></column>
+            <column name="user_name" value="Admin"></column>
+            <column name="role_id" value="2"></column>
+            <column name="password" value="Admin"></column>
+        </insert>
+        <insert tableName="usr">
+            <column name="user_id" value="3"></column>
+            <column name="user_name" value="Depp"></column>
+            <column name="role_id" value="3"></column>
+            <column name="password" value="Depp"></column>
+        </insert>
+        <addForeignKeyConstraint baseTableName="usr" baseColumnNames="role_id" constraintName="fk_usr_rls"
+                                 referencedTableName="rls"
+                                 referencedColumnNames="role_id"></addForeignKeyConstraint>
+    </changeSet>
+</databaseChangeLog>

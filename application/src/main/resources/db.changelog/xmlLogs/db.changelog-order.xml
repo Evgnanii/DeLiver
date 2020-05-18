@@ -1,0 +1,71 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+    <changeSet id="1" author="evgnanii">
+        <createTable tableName="orders">
+            <column name="order_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="courier_id" type="BIGINT"/>
+            <column name="restaurant_id" type="BIGINT"/>
+            <column name="client_id" type="BIGINT"/>
+            <column name="basket_id" type="BIGINT"/>
+            <column name="status" type="varchar(30)"/>
+            <column name="total_cost" type="double"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="evgnanii">
+        <insert tableName="orders">
+            <column name="courier_id" value="2"></column>
+            <column name="restaurant_id" value="2"></column>
+            <column name="client_id" value="2"></column>
+            <column name="basket_id" value="3"></column>
+            <column name="status" value="ONPATH"></column>
+            <column name="total_cost" value="3200"></column>
+        </insert>
+        <insert tableName="orders">
+            <column name="courier_id" value="1"></column>
+            <column name="restaurant_id" value="3"></column>
+            <column name="client_id" value="3"></column>
+            <column name="basket_id" value="1"></column>
+            <column name="status" value="COMPLETE"></column>
+            <column name="total_cost" value="10000"></column>
+        </insert>
+        <insert tableName="orders">
+            <column name="courier_id" value="3"></column>
+            <column name="restaurant_id" value="1"></column>
+            <column name="client_id" value="1"></column>
+            <column name="basket_id" value="2"></column>
+            <column name="status" value="ONREST"></column>
+            <column name="total_cost" value="1200"></column>
+        </insert>
+
+    </changeSet>
+    <changeSet id="3" author="evgnanii">
+        <addForeignKeyConstraint baseColumnNames="courier_id"
+                                 baseTableName="orders"
+                                 constraintName="fk_order_courier_id"
+                                 referencedColumnNames="courier_id"
+                                 referencedTableName="couriers"/>
+        <addForeignKeyConstraint baseColumnNames="restaurant_id"
+                                 baseTableName="orders"
+                                 constraintName="fk_order_restaurant_id"
+                                 referencedColumnNames="restaurant_id"
+                                 referencedTableName="restaurants"/>
+        <addForeignKeyConstraint baseColumnNames="client_id"
+                                 baseTableName="orders"
+                                 constraintName="fk_order_client_id"
+                                 referencedColumnNames="client_id"
+                                 referencedTableName="clients"/>
+        <addForeignKeyConstraint baseColumnNames="basket_id"
+                                 baseTableName="orders"
+                                 constraintName="fk_order_basket_id"
+                                 referencedColumnNames="basket_id"
+                                 referencedTableName="baskets"/>
+    </changeSet>
+
+
+</databaseChangeLog>
