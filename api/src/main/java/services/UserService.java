@@ -3,7 +3,6 @@ package services;
 import by.st.deliver.core.entities.User;
 import org.springframework.stereotype.Service;
 
-@Service
 public interface UserService {
     public User addUser(User user);
 
