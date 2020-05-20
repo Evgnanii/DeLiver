@@ -60,11 +60,7 @@
                                  constraintName="fk_order_client_id"
                                  referencedColumnNames="client_id"
                                  referencedTableName="clients"/>
-        <addForeignKeyConstraint baseColumnNames="basket_id"
-                                 baseTableName="orders"
-                                 constraintName="fk_order_basket_id"
-                                 referencedColumnNames="basket_id"
-                                 referencedTableName="baskets"/>
+
     </changeSet>
 
 

@@ -26,7 +26,7 @@ public class Restaurant {
     @Column(name = "restaurant_address")
     private String restaurantAddress;
 
-    @Column(name = "rating")
+    @Column(name = "restaurant_rating")
     private Double rating;
 
 }

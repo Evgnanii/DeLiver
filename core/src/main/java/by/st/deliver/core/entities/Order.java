@@ -26,9 +26,6 @@ public class Order {
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
-    @ManyToOne
-    @JoinColumn(name = "basket_id")
-    private Basket basket_id;
 
     @Column(name = "total_cost")
     private Double totalCost;

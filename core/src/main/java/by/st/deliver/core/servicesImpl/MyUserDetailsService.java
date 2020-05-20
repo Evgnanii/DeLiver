@@ -1,4 +1,4 @@
-package by.st.deliver.core.services;
+package by.st.deliver.core.servicesImpl;
 
 import by.st.deliver.core.dao.UserRepository;
 import by.st.deliver.core.entities.User;
