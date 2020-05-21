@@ -14,11 +14,9 @@ public class ProductInBasket {
     @Column(name = "product_in_basket_id")
     private Long productInBasketId;
 
-
-
     @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -26,35 +24,14 @@ public class ProductInBasket {
 
     @Column(name = "count")
     private Integer count;
-    public Long getProductInBasketId() {
-        return productInBasketId;
+
+    public ProductInBasket() {
     }
 
-    public void setProductInBasketId(Long productInBasketId) {
+    public ProductInBasket(Long productInBasketId, Order order, Product product, Integer count) {
         this.productInBasketId = productInBasketId;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
+        this.order = order;
         this.product = product;
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
         this.count = count;
     }
 }

@@ -23,6 +23,7 @@ public class ProductInBasketServiceImpl implements ProductInBasketService {
 
     @Override
     public ProductInBasketDTO addProductInBasket(ProductInBasketDTO productInBasketDTO) {
+
         logger.debug("ProductInBasketService starts method addProductInBasket");
         productInBasketRepository.save(ProductInBasketMapper.INSTANCE.productInBasketDTOToProductInBasket(productInBasketDTO));
         logger.debug("addProductInBasket operation ended ok");
@@ -40,8 +41,8 @@ public class ProductInBasketServiceImpl implements ProductInBasketService {
     }
 
     @Override
-    public Iterable<ProductInBasketDTO> listProductsInBasket(Long clientId) {
-        List<ProductInBasket> productInBaskets = productInBasketRepository.findAllByClientClientId(clientId);
+    public Iterable<ProductInBasketDTO> listProductsInBasket(Long orderId) {
+        List<ProductInBasket> productInBaskets = productInBasketRepository.findAllByOrderOrderId(orderId);
         List<ProductInBasketDTO> productInBasketDTOS = new ArrayList<>();
         for (int i = 0; i < productInBaskets.size(); i++) {
             productInBasketDTOS.add(ProductInBasketMapper.INSTANCE.productInBasketToProductInBasketDTO(productInBaskets.get(i)));

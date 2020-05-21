@@ -27,5 +27,14 @@ public class Courier {
     @Column(name = "courier_status")
     private CourierStatus courierStatus;
 
+    public Courier() {
+    }
 
+    public Courier(Long courierId, String courierFirstName, String courierSecondName, Double courierRating, CourierStatus courierStatus) {
+        this.courierId = courierId;
+        this.courierFirstName = courierFirstName;
+        this.courierSecondName = courierSecondName;
+        this.courierRating = courierRating;
+        this.courierStatus = courierStatus;
+    }
 }

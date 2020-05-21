@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.*;
 
 public interface ProductInBasketRepository extends JpaRepository<ProductInBasket, Long> {
-    List<ProductInBasket> findAllByClientClientId(Long id);
+    List<ProductInBasket> findAllByOrderOrderId(Long id);
     ProductInBasket findByProductInBasketId(Long id);
 
 }

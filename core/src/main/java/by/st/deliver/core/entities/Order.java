@@ -31,6 +31,18 @@ public class Order {
     private Double totalCost;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "order_status")
+    @Column(name = "status")
     private OrderStatus orderStatus;
+
+    public Order(Long orderId, Courier courier, Client client, Restaurant restaurant, Double totalCost, OrderStatus orderStatus) {
+        this.orderId = orderId;
+        this.courier = courier;
+        this.client = client;
+        this.restaurant = restaurant;
+        this.totalCost = totalCost;
+        this.orderStatus = orderStatus;
+    }
+
+    public Order() {
+    }
 }
