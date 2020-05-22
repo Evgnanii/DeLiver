@@ -38,6 +38,14 @@ public class Client {
     @Column(name = "privilege_level", nullable = false)
     private PrivilegeLevel privilegeLevel;
 
+    public PrivilegeLevel getPrivilegeLevel() {
+        return privilegeLevel;
+    }
+
+    public void setPrivilegeLevel(PrivilegeLevel privilegeLevel) {
+        this.privilegeLevel = privilegeLevel;
+    }
+
     public Client() {
     }
 
