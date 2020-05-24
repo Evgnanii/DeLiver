@@ -1,10 +1,15 @@
 package by.st.deliver.core.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "couriers")
 public class Courier {
@@ -27,14 +32,4 @@ public class Courier {
     @Column(name = "courier_status")
     private CourierStatus courierStatus;
 
-    public Courier() {
-    }
-
-    public Courier(Long courierId, String courierFirstName, String courierSecondName, Double courierRating, CourierStatus courierStatus) {
-        this.courierId = courierId;
-        this.courierFirstName = courierFirstName;
-        this.courierSecondName = courierSecondName;
-        this.courierRating = courierRating;
-        this.courierStatus = courierStatus;
-    }
 }

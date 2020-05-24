@@ -1,9 +1,14 @@
 package by.st.deliver.core.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "comment")
 public class Comment {
@@ -31,15 +36,5 @@ public class Comment {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public Comment() {
-    }
 
-    public Comment(Long commentId, String commentText, Client client, Double commentRating, Restaurant restaurant, Product product) {
-        this.commentId = commentId;
-        this.commentText = commentText;
-        this.client = client;
-        this.commentRating = commentRating;
-        this.restaurant = restaurant;
-        this.product = product;
-    }
 }

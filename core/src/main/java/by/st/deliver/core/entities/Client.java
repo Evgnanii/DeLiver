@@ -1,15 +1,16 @@
 package by.st.deliver.core.entities;
 
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "clients")
 public class Client {
@@ -38,24 +39,5 @@ public class Client {
     @Column(name = "privilege_level", nullable = false)
     private PrivilegeLevel privilegeLevel;
 
-    public PrivilegeLevel getPrivilegeLevel() {
-        return privilegeLevel;
-    }
 
-    public void setPrivilegeLevel(PrivilegeLevel privilegeLevel) {
-        this.privilegeLevel = privilegeLevel;
-    }
-
-    public Client() {
-    }
-
-    public Client(Long clientId, String clientName, String clientEmail, String clientPhoneNumber, String clientAddress, Date dateOfBirth, @NotNull PrivilegeLevel privilegeLevel) {
-        this.clientId = clientId;
-        this.clientName = clientName;
-        this.clientEmail = clientEmail;
-        this.clientPhoneNumber = clientPhoneNumber;
-        this.clientAddress = clientAddress;
-        this.dateOfBirth = dateOfBirth;
-        this.privilegeLevel = privilegeLevel;
-    }
 }

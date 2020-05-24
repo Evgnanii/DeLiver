@@ -1,10 +1,15 @@
 package by.st.deliver.core.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "products_in_basket")
 public class ProductInBasket {
@@ -25,13 +30,5 @@ public class ProductInBasket {
     @Column(name = "count")
     private Integer count;
 
-    public ProductInBasket() {
-    }
 
-    public ProductInBasket(Long productInBasketId, Order order, Product product, Integer count) {
-        this.productInBasketId = productInBasketId;
-        this.order = order;
-        this.product = product;
-        this.count = count;
-    }
 }

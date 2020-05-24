@@ -1,13 +1,17 @@
 package by.st.deliver.core.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "rls")
 public class Role  implements GrantedAuthority {
@@ -23,15 +27,6 @@ public class Role  implements GrantedAuthority {
 
     public String getRole() {
         return role;
-    }
-
-    public Role() {
-    }
-
-    public Role(long id, String role, Set<User> users) {
-        this.id = id;
-        this.role = role;
-        this.users = users;
     }
 
     @Override

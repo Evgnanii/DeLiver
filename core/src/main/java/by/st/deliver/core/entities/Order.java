@@ -1,10 +1,15 @@
 package by.st.deliver.core.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -34,15 +39,5 @@ public class Order {
     @Column(name = "status")
     private OrderStatus orderStatus;
 
-    public Order(Long orderId, Courier courier, Client client, Restaurant restaurant, Double totalCost, OrderStatus orderStatus) {
-        this.orderId = orderId;
-        this.courier = courier;
-        this.client = client;
-        this.restaurant = restaurant;
-        this.totalCost = totalCost;
-        this.orderStatus = orderStatus;
-    }
 
-    public Order() {
-    }
 }

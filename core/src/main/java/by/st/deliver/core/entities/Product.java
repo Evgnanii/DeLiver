@@ -1,11 +1,16 @@
 package by.st.deliver.core.entities;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "products")
 public class Product {
@@ -34,16 +39,4 @@ public class Product {
     @Column(name = "discount")
     private Long discount;
 
-    public Product() {
-    }
-
-    public Product(Long productId, String productName, Double cost, Double productRating, String productWeight, Restaurant restaurant, Long discount) {
-        this.productId = productId;
-        this.productName = productName;
-        this.cost = cost;
-        this.productRating = productRating;
-        this.productWeight = productWeight;
-        this.restaurant = restaurant;
-        this.discount = discount;
-    }
 }
