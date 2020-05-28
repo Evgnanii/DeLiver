@@ -3,11 +3,9 @@ package services;
 import dto.ProductInBasketCountUpdateMessage;
 import dto.ProductInBasketDTO;
 
-import java.util.List;
-
 public interface ProductInBasketService {
 
-    public ProductInBasketDTO addProductInBasket(ProductInBasketDTO productInBasketDTO);
+    public Long addProductInBasket(ProductInBasketDTO productInBasketDTO);
 
     public void removeProductInBasket(Long id);
 

@@ -10,6 +10,5 @@ public interface RestaurantMapper {
     RestaurantMapper INSTANCE = Mappers.getMapper(RestaurantMapper.class);
     @Mapping(source = "kitchenType.value", target = "kitchenType")
     RestaurantDTO restaurantToRestaurantDTO(Restaurant restaurant);
-    @Mapping(source = "kitchenType", target = "kitchenType")
     Restaurant restaurantDTOToRestaurant(RestaurantDTO restaurantDTO);
 }

@@ -2,11 +2,12 @@ package services;
 
 import dto.ProductDTO;
 import dto.ProductDiscountUpdateMessage;
-import java.util.*;
+
+import java.util.List;
 
 public interface ProductService {
 
-    public ProductDTO addProduct(ProductDTO productDTO);
+    public Long addProduct(ProductDTO productDTO);
 
     public void removeProduct(Long id);
 

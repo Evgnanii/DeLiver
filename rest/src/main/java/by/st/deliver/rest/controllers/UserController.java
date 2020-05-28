@@ -2,7 +2,6 @@ package by.st.deliver.rest.controllers;
 
 import by.st.deliver.core.dao.UserRepository;
 import by.st.deliver.core.entities.User;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

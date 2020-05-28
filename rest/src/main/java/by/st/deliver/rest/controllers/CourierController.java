@@ -28,8 +28,17 @@ public class CourierController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<CourierDTO>> addCouriers() {
+    public ResponseEntity<List<CourierDTO>> getCouriers() {
         List<CourierDTO> courierDTOS = courierService.getCourierList();
+        if (courierDTOS != null) {
+            return new ResponseEntity<>(courierDTOS, new HttpHeaders(), HttpStatus.OK);
+        }
+        throw new RuntimeException();
+    }
+
+    @GetMapping("/rating/{min_rating}")
+    public ResponseEntity<List<CourierDTO>> addCouriers(@PathVariable("min_rating") Long minRating) {
+        List<CourierDTO> courierDTOS = courierService.getCouriersByRating(minRating);
         if (courierDTOS != null) {
             return new ResponseEntity<>(courierDTOS, new HttpHeaders(), HttpStatus.OK);
         }
@@ -56,8 +65,8 @@ public class CourierController {
     @PutMapping
     public ResponseEntity<CourierDTO> updateCourier(@RequestBody @Valid CourierDTO courierDTO) {
         CourierDTO newCourierDTO = courierService.updateCourier(courierDTO);
-        if (newCourierDTO != null){
-            return new ResponseEntity<>(newCourierDTO, new HttpHeaders(), HttpStatus.OK);}
-        else throw new RuntimeException();
+        if (newCourierDTO != null) {
+            return new ResponseEntity<>(newCourierDTO, new HttpHeaders(), HttpStatus.OK);
+        } else throw new RuntimeException();
     }
 }

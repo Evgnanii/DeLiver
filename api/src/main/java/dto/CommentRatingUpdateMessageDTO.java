@@ -3,7 +3,7 @@ package dto;
 import lombok.Data;
 
 @Data
-public class CommentMessageDTO {
+public class CommentRatingUpdateMessageDTO {
     Long id;
     Double newRating;
 }

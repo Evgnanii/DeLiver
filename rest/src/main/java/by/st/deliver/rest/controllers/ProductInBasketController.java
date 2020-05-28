@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import services.ProductInBasketService;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/products_in_basket/")

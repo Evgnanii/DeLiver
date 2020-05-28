@@ -17,6 +17,5 @@ public interface CommentMapper {
     @Mappings({@Mapping(source = "productId", target = "product.productId"),
             @Mapping(source = "restaurantId", target = "restaurant.restaurantId"),
             @Mapping(source = "clientId", target = "client.clientId")})
-    @Mapping(source = "courierStatus", target = "courierStatus")
     Comment commentDTOToComment(CommentDTO commentDTO);
 }

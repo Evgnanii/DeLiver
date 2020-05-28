@@ -1,14 +1,15 @@
 package by.st.deliver.core.dao;
 
 import by.st.deliver.core.entities.Client;
-
-import by.st.deliver.core.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.parameters.P;
-import org.springframework.stereotype.Repository;
+
+import java.sql.Date;
+import java.util.List;
 
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
     Client findClientByClientId(Long id);
+    Client findClientByClientName(String clientName);
+    List<Client> findAllByDateOfBirthBetween(Date startDate, Date endDate);
 
 }
