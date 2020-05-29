@@ -1,4 +1,4 @@
-package by.st.deliver.core;
+package by.st.deliver.core.config;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
