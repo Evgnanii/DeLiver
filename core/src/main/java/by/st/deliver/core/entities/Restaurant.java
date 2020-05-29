@@ -1,10 +1,15 @@
 package by.st.deliver.core.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "restaurants")
 public class Restaurant {
@@ -26,7 +31,8 @@ public class Restaurant {
     @Column(name = "restaurant_address")
     private String restaurantAddress;
 
-    @Column(name = "rating")
+    @Column(name = "restaurant_rating")
     private Double rating;
+
 
 }

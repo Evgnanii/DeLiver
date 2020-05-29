@@ -1,9 +1,14 @@
 package by.st.deliver.core.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "comment")
 public class Comment {
@@ -30,8 +35,6 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-
-
 
 
 }

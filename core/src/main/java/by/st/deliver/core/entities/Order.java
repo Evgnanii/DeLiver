@@ -1,10 +1,15 @@
 package by.st.deliver.core.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -26,14 +31,13 @@ public class Order {
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
-    @ManyToOne
-    @JoinColumn(name = "basket_id")
-    private Basket basket_id;
 
     @Column(name = "total_cost")
     private Double totalCost;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "order_status")
+    @Column(name = "status")
     private OrderStatus orderStatus;
+
+
 }

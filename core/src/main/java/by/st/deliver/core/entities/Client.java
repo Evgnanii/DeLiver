@@ -1,13 +1,18 @@
 package by.st.deliver.core.entities;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "clients")
 public class Client {
@@ -35,5 +40,6 @@ public class Client {
     @NotNull
     @Column(name = "privilege_level", nullable = false)
     private PrivilegeLevel privilegeLevel;
+
 
 }

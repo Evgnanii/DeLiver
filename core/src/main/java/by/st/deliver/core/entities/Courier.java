@@ -1,10 +1,15 @@
 package by.st.deliver.core.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "couriers")
 public class Courier {
@@ -26,6 +31,5 @@ public class Courier {
     @Enumerated(EnumType.STRING)
     @Column(name = "courier_status")
     private CourierStatus courierStatus;
-
 
 }

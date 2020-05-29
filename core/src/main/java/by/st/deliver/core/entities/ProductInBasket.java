@@ -1,12 +1,17 @@
 package by.st.deliver.core.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "product_in_bastet")
+@Table(name = "products_in_basket")
 public class ProductInBasket {
 
     @Id
@@ -15,8 +20,8 @@ public class ProductInBasket {
     private Long productInBasketId;
 
     @ManyToOne
-    @JoinColumn(name = "basket_id")
-    private Basket basket;
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -24,4 +29,6 @@ public class ProductInBasket {
 
     @Column(name = "count")
     private Integer count;
+
+
 }

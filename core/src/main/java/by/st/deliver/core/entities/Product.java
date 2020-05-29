@@ -1,11 +1,16 @@
 package by.st.deliver.core.entities;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "products")
 public class Product {
@@ -20,9 +25,10 @@ public class Product {
 
     @Column(name = "product_cost")
     private Double cost;
-    @Column(name = "product_rating")
 
+    @Column(name = "product_rating")
     private Double productRating;
+
     @Column(name = " product_weight")
     private String productWeight;
 
