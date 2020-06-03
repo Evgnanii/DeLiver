@@ -12,24 +12,21 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "couriers")
-public class Courier {
-
+public class Courier  {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "courier_id")
-    private Long courierId;
-
-    @Column(name = "courier_first_name")
-    private String courierFirstName;
-
-    @Column(name = "courier_second_name")
-    private String courierSecondName;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    protected Long id;
+    @Column(name = "name")
+    protected String username;
+    @Column(name = "password")
+    protected String password;
 
     @Column(name = "courier_rating")
-    private Double courierRating;
+    private Double rating;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "courier_status")
-    private CourierStatus courierStatus;
+    private CourierStatus status;
 
 }

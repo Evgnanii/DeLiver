@@ -21,7 +21,7 @@ public class ProductController {
 
     @GetMapping("/{restaurant_id}")
     public ResponseEntity<List<ProductDTO>> getAllRestaurantProducts(@PathVariable("restaurant_id") Long restaurantId) {
-        List<ProductDTO> productDTOList = (List<ProductDTO>) productService.getProductListByRestaurantId(restaurantId);
+        List<ProductDTO> productDTOList =  productService.getProductListByRestaurantId(restaurantId);
         return new ResponseEntity<>(productDTOList, new HttpHeaders(), HttpStatus.OK);
     }
 

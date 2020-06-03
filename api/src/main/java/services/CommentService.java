@@ -20,4 +20,5 @@ public interface CommentService {
     public List<CommentDTO> getCommentByClientId(Long ClientId);
 
     public CommentDTO getCommentById(Long commentId);
+
 }

@@ -17,28 +17,26 @@ import java.sql.Date;
 @Table(name = "clients")
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "client_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    protected Long id;
+    @Column(name = "name")
+    protected String username;
+    @Column(name = "password")
+    protected String password;
+    private String email;
+    @Column(name = "phone_number", nullable = false, unique = true)
 
-    private Long clientId;
-    @Column(name = "client_name", nullable = false, unique = true)
-
-    private String clientName;
-    @Column(name = "client_email", nullable = false, unique = true)
-
-    private String clientEmail;
-    @Column(name = "client_phone_number", nullable = false, unique = true)
-
-    private String clientPhoneNumber;
-    @Column(name = "client_address", nullable = false, unique = true)
-    private String clientAddress;
+    private String phoneNumber;
+    @Column(name = "address", nullable = false, unique = true)
+    private String address;
 
     @Column(name = "date_of_birth")
     private Date dateOfBirth;
 
     @Enumerated(EnumType.STRING)
     @NotNull
-    @Column(name = "privilege_level", nullable = false)
+    @Column(name = "privilege_level", nullable = false, columnDefinition = "enum('DIAMOND', 'SILVER', 'GOLD')")
     private PrivilegeLevel privilegeLevel;
 
 

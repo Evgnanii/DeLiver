@@ -13,11 +13,13 @@ import java.util.Date;
 @RestControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(NoSuchDataExceptionQ.class)
-    public ResponseEntity<Object> handleNoSuchDataException(NoSuchDataExceptionQ c) {
+    @ExceptionHandler(NoSuchDataException.class)
+    public ResponseEntity<Object> handleNoSuchDataException(NoSuchDataException c) {
         ErrorMessage errorMessage = new ErrorMessage(new Date(), c.getMessage());
         return new ResponseEntity(errorMessage, new HttpHeaders(), HttpStatus.NOT_FOUND);
-    } @ExceptionHandler(MinRatingException.class)
+    }
+
+    @ExceptionHandler(MinRatingException.class)
     public ResponseEntity<Object> handleMinRatingException(MinRatingException c) {
         ErrorMessage errorMessage = new ErrorMessage(new Date(), c.getMessage());
         return new ResponseEntity(errorMessage, new HttpHeaders(), HttpStatus.NOT_FOUND);
@@ -37,6 +39,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(BadRequestBodyException.class)
     public ResponseEntity<Object> handleBadRequestBodyException(BadRequestBodyException c) {
+        ErrorMessage errorMessage = new ErrorMessage(new Date(), c.getMessage());
+        return new ResponseEntity(errorMessage, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(OrderAlreadyReleasedException.class)
+    public ResponseEntity<Object> handleOrderAlreadyReleasedException(OrderAlreadyReleasedException c) {
         ErrorMessage errorMessage = new ErrorMessage(new Date(), c.getMessage());
         return new ResponseEntity(errorMessage, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }

@@ -9,7 +9,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-05-28T14:16:15+0300",
+    date = "2020-06-02T23:05:02+0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.6 (JetBrains s.r.o)"
 )
 public class ClientMapperImpl implements ClientMapper {
@@ -23,11 +23,10 @@ public class ClientMapperImpl implements ClientMapper {
         ClientDTO clientDTO = new ClientDTO();
 
         clientDTO.setPrivilegeLevel( clientPrivilegeLevelValue( client ) );
-        clientDTO.setClientId( client.getClientId() );
-        clientDTO.setClientName( client.getClientName() );
-        clientDTO.setClientEmail( client.getClientEmail() );
-        clientDTO.setClientPhoneNumber( client.getClientPhoneNumber() );
-        clientDTO.setClientAddress( client.getClientAddress() );
+        clientDTO.setId( client.getId() );
+        clientDTO.setEmail( client.getEmail() );
+        clientDTO.setPhoneNumber( client.getPhoneNumber() );
+        clientDTO.setAddress( client.getAddress() );
         clientDTO.setDateOfBirth( client.getDateOfBirth() );
 
         return clientDTO;
@@ -41,11 +40,10 @@ public class ClientMapperImpl implements ClientMapper {
 
         Client client = new Client();
 
-        client.setClientId( clientDTO.getClientId() );
-        client.setClientName( clientDTO.getClientName() );
-        client.setClientEmail( clientDTO.getClientEmail() );
-        client.setClientPhoneNumber( clientDTO.getClientPhoneNumber() );
-        client.setClientAddress( clientDTO.getClientAddress() );
+        client.setId( clientDTO.getId() );
+        client.setEmail( clientDTO.getEmail() );
+        client.setPhoneNumber( clientDTO.getPhoneNumber() );
+        client.setAddress( clientDTO.getAddress() );
         client.setDateOfBirth( clientDTO.getDateOfBirth() );
         if ( clientDTO.getPrivilegeLevel() != null ) {
             client.setPrivilegeLevel( Enum.valueOf( PrivilegeLevel.class, clientDTO.getPrivilegeLevel() ) );

@@ -16,4 +16,7 @@ public interface CourierService {
     public CourierDTO getCourierById(Long id);
 
     public List<CourierDTO> getCouriersByRating(Long minRating);
+
+    public Long getOrder(Long orderId, Long courierId);
+
 }

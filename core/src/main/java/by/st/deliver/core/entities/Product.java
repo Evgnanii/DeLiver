@@ -17,20 +17,20 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
-    private Long productId;
+    @Column(name = "id")
+    private Long id;
 
-    @Column(name = "product_name")
-    private String productName;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "product_cost")
+    @Column(name = "cost")
     private Double cost;
 
-    @Column(name = "product_rating")
-    private Double productRating;
+    @Column(name = "rating")
+    private Double rating;
 
-    @Column(name = " product_weight")
-    private String productWeight;
+    @Column(name = "weight")
+    private String weight;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")

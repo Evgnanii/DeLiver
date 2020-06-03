@@ -8,8 +8,10 @@ import java.util.List;
 
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
-    Client findClientByClientId(Long id);
-    Client findClientByClientName(String clientName);
+    Client findClientById(Long id);
+
+    Client findClientByUsername(String clientName);
+
     List<Client> findAllByDateOfBirthBetween(Date startDate, Date endDate);
 
 }

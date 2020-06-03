@@ -6,7 +6,7 @@
 
     <changeSet id="1" author="evgnanii">
         <createTable tableName="orders">
-            <column name="order_id" type="BIGINT" autoIncrement="true">
+            <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="courier_id" type="BIGINT"/>
@@ -48,19 +48,18 @@
         <addForeignKeyConstraint baseColumnNames="courier_id"
                                  baseTableName="orders"
                                  constraintName="fk_order_courier_id"
-                                 referencedColumnNames="courier_id"
+                                 referencedColumnNames="id"
                                  referencedTableName="couriers"/>
         <addForeignKeyConstraint baseColumnNames="restaurant_id"
                                  baseTableName="orders"
                                  constraintName="fk_order_restaurant_id"
-                                 referencedColumnNames="restaurant_id"
+                                 referencedColumnNames="id"
                                  referencedTableName="restaurants"/>
         <addForeignKeyConstraint baseColumnNames="client_id"
                                  baseTableName="orders"
                                  constraintName="fk_order_client_id"
-                                 referencedColumnNames="client_id"
+                                 referencedColumnNames="id"
                                  referencedTableName="clients"/>
-
     </changeSet>
 
 

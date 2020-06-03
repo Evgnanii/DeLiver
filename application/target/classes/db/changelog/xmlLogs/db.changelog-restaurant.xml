@@ -6,41 +6,41 @@
 
     <changeSet id="1" author="evgnanii">
         <createTable tableName="restaurants">
-            <column name="restaurant_id" type="BIGINT" autoIncrement="true">
+            <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="restaurant_name" type="varchar(50)"/>
-            <column name="restaurant_address" type="varchar(150)">
+            <column name="name" type="varchar(50)"/>
+            <column name="address" type="varchar(150)">
                 <constraints nullable="false"/>
             </column>
-            <column name="restaurant_rating" type="double"/>
+            <column name="rating" type="double"/>
 
-            <column name="restaurant_phone_number" type="varchar(50)"></column>
-            <column name="restaurant_kitchen_type" type="varchar(50)"></column>
+            <column name="phone_number" type="varchar(50)"></column>
+            <column name="kitchen_type" type="varchar(50)"></column>
         </createTable>
     </changeSet>
     <changeSet id="2" author="evgnanii">
         <insert tableName="restaurants">
-            <column name="restaurant_name" value="Италия дома"/>
-            <column name="restaurant_address" value="Ул. Кижеватова 2"/>
-            <column name="restaurant_rating" value="4.9"/>
+            <column name="name" value="Италия дома"/>
+            <column name="address" value="Ул. Кижеватова 2"/>
+            <column name="rating" value="4.9"/>
 
-            <column name="restaurant_phone_number" value="+37529221223"/>
-            <column name="restaurant_kitchen_type" value="ITALIAN"></column>
+            <column name="phone_number" value="+37529221223"/>
+            <column name="kitchen_type" value="ITALIAN"></column>
         </insert>
         <insert tableName="restaurants">
-            <column name="restaurant_name" value="McDonalds"/>
-            <column name="restaurant_address" value="Ул. Московская 4"/>
-            <column name="restaurant_rating" value="3.3"/>
-            <column name="restaurant_phone_number" value="+37529223223"/>
-            <column name="restaurant_kitchen_type" value="FASTFOOD"></column>
+            <column name="name" value="McDonalds"/>
+            <column name="address" value="Ул. Московская 4"/>
+            <column name="rating" value="3.3"/>
+            <column name="phone_number" value="+37529223223"/>
+            <column name="kitchen_type" value="FASTFOOD"></column>
         </insert>
         <insert tableName="restaurants">
-            <column name="restaurant_name" value="Беларусачка"/>
-            <column name="restaurant_address" value="Ул. Жукова 12"/>
-            <column name="restaurant_rating" value="4.9"/>
-            <column name="restaurant_phone_number" value="+37529229523"/>
-            <column name="restaurant_kitchen_type" value="BELARUSIAN"></column>
+            <column name="name" value="Беларусачка"/>
+            <column name="address" value="Ул. Жукова 12"/>
+            <column name="rating" value="4.9"/>
+            <column name="phone_number" value="+37529229523"/>
+            <column name="kitchen_type" value="BELARUSIAN"></column>
         </insert>
     </changeSet>
 

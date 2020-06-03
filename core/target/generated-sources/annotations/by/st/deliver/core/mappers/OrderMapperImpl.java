@@ -10,7 +10,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-05-28T16:04:57+0300",
+    date = "2020-06-02T23:05:02+0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.6 (JetBrains s.r.o)"
 )
 public class OrderMapperImpl implements OrderMapper {
@@ -23,11 +23,11 @@ public class OrderMapperImpl implements OrderMapper {
 
         OrderDTO orderDTO = new OrderDTO();
 
-        orderDTO.setOrderStatus( orderOrderStatusValue( order ) );
-        orderDTO.setCourierId( orderCourierCourierId( order ) );
-        orderDTO.setClientId( orderClientClientId( order ) );
-        orderDTO.setRestaurantId( orderRestaurantRestaurantId( order ) );
-        orderDTO.setOrderId( order.getOrderId() );
+        orderDTO.setCourierId( orderCourierId( order ) );
+        orderDTO.setClientId( orderClientId( order ) );
+        orderDTO.setRestaurantId( orderRestaurantId( order ) );
+        orderDTO.setStatus( orderStatusValue( order ) );
+        orderDTO.setId( order.getId() );
         orderDTO.setTotalCost( order.getTotalCost() );
 
         return orderDTO;
@@ -44,31 +44,16 @@ public class OrderMapperImpl implements OrderMapper {
         order.setRestaurant( orderDTOToRestaurant( orderDTO ) );
         order.setCourier( orderDTOToCourier( orderDTO ) );
         order.setClient( orderDTOToClient( orderDTO ) );
-        order.setOrderId( orderDTO.getOrderId() );
+        order.setId( orderDTO.getId() );
         order.setTotalCost( orderDTO.getTotalCost() );
-        if ( orderDTO.getOrderStatus() != null ) {
-            order.setOrderStatus( Enum.valueOf( OrderStatus.class, orderDTO.getOrderStatus() ) );
+        if ( orderDTO.getStatus() != null ) {
+            order.setStatus( Enum.valueOf( OrderStatus.class, orderDTO.getStatus() ) );
         }
 
         return order;
     }
 
-    private String orderOrderStatusValue(Order order) {
-        if ( order == null ) {
-            return null;
-        }
-        OrderStatus orderStatus = order.getOrderStatus();
-        if ( orderStatus == null ) {
-            return null;
-        }
-        String value = orderStatus.getValue();
-        if ( value == null ) {
-            return null;
-        }
-        return value;
-    }
-
-    private Long orderCourierCourierId(Order order) {
+    private Long orderCourierId(Order order) {
         if ( order == null ) {
             return null;
         }
@@ -76,14 +61,14 @@ public class OrderMapperImpl implements OrderMapper {
         if ( courier == null ) {
             return null;
         }
-        Long courierId = courier.getCourierId();
-        if ( courierId == null ) {
+        Long id = courier.getId();
+        if ( id == null ) {
             return null;
         }
-        return courierId;
+        return id;
     }
 
-    private Long orderClientClientId(Order order) {
+    private Long orderClientId(Order order) {
         if ( order == null ) {
             return null;
         }
@@ -91,14 +76,14 @@ public class OrderMapperImpl implements OrderMapper {
         if ( client == null ) {
             return null;
         }
-        Long clientId = client.getClientId();
-        if ( clientId == null ) {
+        Long id = client.getId();
+        if ( id == null ) {
             return null;
         }
-        return clientId;
+        return id;
     }
 
-    private Long orderRestaurantRestaurantId(Order order) {
+    private Long orderRestaurantId(Order order) {
         if ( order == null ) {
             return null;
         }
@@ -106,11 +91,26 @@ public class OrderMapperImpl implements OrderMapper {
         if ( restaurant == null ) {
             return null;
         }
-        Long restaurantId = restaurant.getRestaurantId();
-        if ( restaurantId == null ) {
+        Long id = restaurant.getId();
+        if ( id == null ) {
             return null;
         }
-        return restaurantId;
+        return id;
+    }
+
+    private String orderStatusValue(Order order) {
+        if ( order == null ) {
+            return null;
+        }
+        OrderStatus status = order.getStatus();
+        if ( status == null ) {
+            return null;
+        }
+        String value = status.getValue();
+        if ( value == null ) {
+            return null;
+        }
+        return value;
     }
 
     protected Restaurant orderDTOToRestaurant(OrderDTO orderDTO) {
@@ -120,7 +120,7 @@ public class OrderMapperImpl implements OrderMapper {
 
         Restaurant restaurant = new Restaurant();
 
-        restaurant.setRestaurantId( orderDTO.getRestaurantId() );
+        restaurant.setId( orderDTO.getRestaurantId() );
 
         return restaurant;
     }
@@ -132,7 +132,7 @@ public class OrderMapperImpl implements OrderMapper {
 
         Courier courier = new Courier();
 
-        courier.setCourierId( orderDTO.getCourierId() );
+        courier.setId( orderDTO.getCourierId() );
 
         return courier;
     }
@@ -144,7 +144,7 @@ public class OrderMapperImpl implements OrderMapper {
 
         Client client = new Client();
 
-        client.setClientId( orderDTO.getClientId() );
+        client.setId( orderDTO.getClientId() );
 
         return client;
     }

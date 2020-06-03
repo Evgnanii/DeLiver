@@ -21,4 +21,9 @@ public interface ClientService {
     public List<ClientDTO> getClientListFromDateRange(ClientDateRangeMessageDTO clientDateRangeMessageDTO);
 
     public ClientDTO getClientById(Long clientId);
+
+    public Long payOrder(Long orderId);
+
+
+
 }

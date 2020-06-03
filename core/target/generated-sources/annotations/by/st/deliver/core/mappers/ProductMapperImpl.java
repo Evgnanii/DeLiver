@@ -7,7 +7,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-05-28T14:16:15+0300",
+    date = "2020-06-02T23:05:02+0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.6 (JetBrains s.r.o)"
 )
 public class ProductMapperImpl implements ProductMapper {
@@ -20,12 +20,12 @@ public class ProductMapperImpl implements ProductMapper {
 
         ProductDTO productDTO = new ProductDTO();
 
-        productDTO.setRestaurantId( productRestaurantRestaurantId( product ) );
-        productDTO.setProductId( product.getProductId() );
-        productDTO.setProductName( product.getProductName() );
+        productDTO.setRestaurantId( productRestaurantId( product ) );
+        productDTO.setId( product.getId() );
+        productDTO.setName( product.getName() );
         productDTO.setCost( product.getCost() );
-        productDTO.setProductRating( product.getProductRating() );
-        productDTO.setProductWeight( product.getProductWeight() );
+        productDTO.setRating( product.getRating() );
+        productDTO.setWeight( product.getWeight() );
         productDTO.setDiscount( product.getDiscount() );
 
         return productDTO;
@@ -40,17 +40,17 @@ public class ProductMapperImpl implements ProductMapper {
         Product product = new Product();
 
         product.setRestaurant( productDTOToRestaurant( productDTO ) );
-        product.setProductId( productDTO.getProductId() );
-        product.setProductName( productDTO.getProductName() );
+        product.setId( productDTO.getId() );
+        product.setName( productDTO.getName() );
         product.setCost( productDTO.getCost() );
-        product.setProductRating( productDTO.getProductRating() );
-        product.setProductWeight( productDTO.getProductWeight() );
+        product.setRating( productDTO.getRating() );
+        product.setWeight( productDTO.getWeight() );
         product.setDiscount( productDTO.getDiscount() );
 
         return product;
     }
 
-    private Long productRestaurantRestaurantId(Product product) {
+    private Long productRestaurantId(Product product) {
         if ( product == null ) {
             return null;
         }
@@ -58,11 +58,11 @@ public class ProductMapperImpl implements ProductMapper {
         if ( restaurant == null ) {
             return null;
         }
-        Long restaurantId = restaurant.getRestaurantId();
-        if ( restaurantId == null ) {
+        Long id = restaurant.getId();
+        if ( id == null ) {
             return null;
         }
-        return restaurantId;
+        return id;
     }
 
     protected Restaurant productDTOToRestaurant(ProductDTO productDTO) {
@@ -72,7 +72,7 @@ public class ProductMapperImpl implements ProductMapper {
 
         Restaurant restaurant = new Restaurant();
 
-        restaurant.setRestaurantId( productDTO.getRestaurantId() );
+        restaurant.setId( productDTO.getRestaurantId() );
 
         return restaurant;
     }

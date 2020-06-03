@@ -15,14 +15,14 @@ import org.mapstruct.factory.Mappers;
 public interface OrderMapper {
     OrderMapper INSTANCE = Mappers.getMapper(OrderMapper.class);
 
-    @Mappings({@Mapping(source = "courier.courierId", target = "courierId"),
-            @Mapping(source = "restaurant.restaurantId", target = "restaurantId"),
-            @Mapping(source = "client.clientId", target = "clientId"), @Mapping(source = "orderStatus.value", target = "orderStatus")})
+    @Mappings({@Mapping(source = "courier.id", target = "courierId"),
+            @Mapping(source = "restaurant.id", target = "restaurantId"),
+            @Mapping(source = "client.id", target = "clientId"), @Mapping(source = "status.value", target = "status")})
     OrderDTO orderToOrderDTO(Order order);
 
-    @Mappings({@Mapping(source = "courierId", target = "courier.courierId"),
-            @Mapping(source = "restaurantId", target = "restaurant.restaurantId"),
-            @Mapping(source = "clientId", target = "client.clientId")})
+    @Mappings({@Mapping(source = "courierId", target = "courier.id"),
+            @Mapping(source = "restaurantId", target = "restaurant.id"),
+            @Mapping(source = "clientId", target = "client.id")})
     Order orderDTOToOrder(OrderDTO orderDTO);
 
 

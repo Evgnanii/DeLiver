@@ -4,26 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductInBasketCountUpdateMessage {
+    @NotNull
+    @Positive
     Long productId;
+    @NotNull
+    @PositiveOrZero
     Integer count;
 
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
+    
 }

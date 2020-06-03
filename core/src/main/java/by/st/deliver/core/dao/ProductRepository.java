@@ -6,8 +6,8 @@ import by.st.deliver.core.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    Product findProductByProductId(Long id);
+    Product findProductById(Long id);
 
-    List<Product> findAllByRestaurantRestaurantId(Long restaurantId);
+    List<Product> findAllByRestaurantId(Long restaurantId);
 
 }

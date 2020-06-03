@@ -24,12 +24,12 @@
         <addForeignKeyConstraint baseColumnNames="order_id"
                                  baseTableName="products_in_basket"
                                  constraintName="fk_product_in_basket_id_order_id"
-                                 referencedColumnNames="order_id"
+                                 referencedColumnNames="id"
                                  referencedTableName="orders"/>
         <addForeignKeyConstraint baseColumnNames="product_id"
                                  baseTableName="products_in_basket"
                                  constraintName="fk_product_in_basket_id_product_id"
-                                 referencedColumnNames="product_id"
+                                 referencedColumnNames="id"
                                  referencedTableName="products"/>
     </changeSet>
 

@@ -8,7 +8,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-05-28T14:16:15+0300",
+    date = "2020-06-02T23:05:02+0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.6 (JetBrains s.r.o)"
 )
 public class ProductInBasketMapperImpl implements ProductInBasketMapper {
@@ -39,8 +39,8 @@ public class ProductInBasketMapperImpl implements ProductInBasketMapper {
 
         ProductInBasketDTO productInBasketDTO = new ProductInBasketDTO();
 
-        productInBasketDTO.setProductId( productInBasketProductProductId( productInBasket ) );
-        productInBasketDTO.setOrderId( productInBasketOrderOrderId( productInBasket ) );
+        productInBasketDTO.setProductId( productInBasketProductId( productInBasket ) );
+        productInBasketDTO.setOrderId( productInBasketOrderId( productInBasket ) );
         productInBasketDTO.setProductInBasketId( productInBasket.getProductInBasketId() );
         if ( productInBasket.getCount() != null ) {
             productInBasketDTO.setCount( productInBasket.getCount().longValue() );
@@ -56,7 +56,7 @@ public class ProductInBasketMapperImpl implements ProductInBasketMapper {
 
         Product product = new Product();
 
-        product.setProductId( productInBasketDTO.getProductId() );
+        product.setId( productInBasketDTO.getProductId() );
 
         return product;
     }
@@ -68,12 +68,12 @@ public class ProductInBasketMapperImpl implements ProductInBasketMapper {
 
         Order order = new Order();
 
-        order.setOrderId( productInBasketDTO.getOrderId() );
+        order.setId( productInBasketDTO.getOrderId() );
 
         return order;
     }
 
-    private Long productInBasketProductProductId(ProductInBasket productInBasket) {
+    private Long productInBasketProductId(ProductInBasket productInBasket) {
         if ( productInBasket == null ) {
             return null;
         }
@@ -81,14 +81,14 @@ public class ProductInBasketMapperImpl implements ProductInBasketMapper {
         if ( product == null ) {
             return null;
         }
-        Long productId = product.getProductId();
-        if ( productId == null ) {
+        Long id = product.getId();
+        if ( id == null ) {
             return null;
         }
-        return productId;
+        return id;
     }
 
-    private Long productInBasketOrderOrderId(ProductInBasket productInBasket) {
+    private Long productInBasketOrderId(ProductInBasket productInBasket) {
         if ( productInBasket == null ) {
             return null;
         }
@@ -96,10 +96,10 @@ public class ProductInBasketMapperImpl implements ProductInBasketMapper {
         if ( order == null ) {
             return null;
         }
-        Long orderId = order.getOrderId();
-        if ( orderId == null ) {
+        Long id = order.getId();
+        if ( id == null ) {
             return null;
         }
-        return orderId;
+        return id;
     }
 }

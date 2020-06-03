@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CourierRepository  extends JpaRepository<Courier, Long> {
-    Courier findCourierByCourierId(Long id);
-    List<Courier> findAllByCourierRatingGreaterThanOrderByCourierRating(Long minRating);
+    Courier findCourierById(Long id);
+    List<Courier> findAllByRatingGreaterThanOrderByRating(Long minRating);
 }

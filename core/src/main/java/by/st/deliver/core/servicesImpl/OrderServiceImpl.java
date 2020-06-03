@@ -2,16 +2,18 @@ package by.st.deliver.core.servicesImpl;
 
 import by.st.deliver.core.dao.OrderRepository;
 import by.st.deliver.core.entities.Order;
+import by.st.deliver.core.entities.OrderStatus;
 import by.st.deliver.core.mappers.OrderMapper;
 import by.st.deliver.core.servicesImpl.exceptions.DataAlreadyExistException;
 import by.st.deliver.core.servicesImpl.exceptions.NoDataException;
-import by.st.deliver.core.servicesImpl.exceptions.NoSuchDataExceptionQ;
+import by.st.deliver.core.servicesImpl.exceptions.NoSuchDataException;
 import dto.OrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import services.OrderService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,76 +23,88 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDTO> getOrderByClientId(Long clientId) {
-        List<Order> orders = orderRepository.findAllByClientClientId(clientId);
-        if (orders.isEmpty()) {
-            throw new NoDataException("There are no orders from client with id " + clientId);
-        }
-        return orders.stream().map(order -> OrderMapper.INSTANCE.orderToOrderDTO(order)).collect(Collectors.toList());
+        Optional<List<Order>> orders = Optional.ofNullable(orderRepository.findAllByClientId(clientId));
+        orders.orElseThrow(() -> new NoDataException("There are no orders from client with id " + clientId));
+        return orders.get().stream().map(order -> OrderMapper.INSTANCE.orderToOrderDTO(order)).collect(Collectors.toList());
     }
 
     @Override
     public Long addOrder(OrderDTO orderDTO) {
-        if (orderRepository.findByOrderId(orderDTO.getOrderId()) != null) {
-            throw new DataAlreadyExistException("Order with id " + orderDTO.getOrderId() + " already exists");
+        Optional<Order> order = orderRepository.findById(orderDTO.getId());
+        if (!order.isPresent()) {
+            throw new DataAlreadyExistException("Order with id " + orderDTO.getId() + " already exists");
         }
         orderRepository.save(OrderMapper.INSTANCE.orderDTOToOrder(orderDTO));
-        return orderDTO.getOrderId();
+        return orderDTO.getId();
     }
 
     @Override
     public void removeOrder(Long id) {
-        if (orderRepository.findByOrderId(id) == null) {
-            throw new NoSuchDataExceptionQ("There is no order with id " + id);
-        }
+        Optional<Order> order = orderRepository.findById(id);
+        order.orElseThrow(() -> new NoSuchDataException("There is no order with id " + id));
         orderRepository.deleteById(id);
-        ;
-
     }
 
     @Override
     public List<OrderDTO> getOrderByRestaurantId(Long restaurantId) {
-        List<Order> orders = orderRepository.findAllByRestaurantRestaurantId(restaurantId);
-        if (orders.isEmpty()) {
-            throw new NoDataException("There are no orders from restaurant with id " + restaurantId);
-        }
-        return orders.stream().map(order -> OrderMapper.INSTANCE.orderToOrderDTO(order)).collect(Collectors.toList());
+        Optional<List<Order>> orders = Optional.ofNullable(orderRepository.findAllByRestaurantId(restaurantId));
+        orders.orElseThrow(() -> new NoDataException("There are no orders from restaurant with id " + restaurantId));
+        return orders.get().stream().map(order -> OrderMapper.INSTANCE.orderToOrderDTO(order)).collect(Collectors.toList());
     }
 
     @Override
     public List<OrderDTO> getOrderByCourierId(Long courierId) {
-        List<Order> orders = orderRepository.findAllByClientClientId(courierId);
-        if (orders.isEmpty()) {
-            throw new NoDataException("There no orders for courier with id " + courierId);
-        }
-        return orders.stream().map(order -> OrderMapper.INSTANCE.orderToOrderDTO(order)).collect(Collectors.toList());
+        Optional<List<Order>> orders = Optional.ofNullable(orderRepository.findAllByCourierId(courierId));
+        orders.orElseThrow(() -> new NoDataException("There no orders for courier with id " + courierId));
+        return orders.get().stream().map(order -> OrderMapper.INSTANCE.orderToOrderDTO(order)).collect(Collectors.toList());
     }
 
     @Override
     public List<OrderDTO> getOrderList() {
-        List<Order> orders = orderRepository.findAll();
-        if (orders.isEmpty()) {
-            throw new NoDataException("There no orders on server ");
-        }
-        return orders.stream().map(order -> OrderMapper.INSTANCE.orderToOrderDTO(order)).collect(Collectors.toList());
+        Optional<List<Order>> orders = Optional.ofNullable(orderRepository.findAll());
+        orders.orElseThrow(() -> new NoDataException("There no orders on server "));
+        return orders.get().stream().map(order -> OrderMapper.INSTANCE.orderToOrderDTO(order)).collect(Collectors.toList());
     }
 
     @Override
     public List<OrderDTO> getAllByOrderStatus(String orderStatus) {
-        List<Order> orders = orderRepository.findAllByOrderStatus(orderStatus);
-
-        if (orders.isEmpty()) {
-            throw new NoDataException("There no orders with order status " + orderStatus);
-        }
-        return orders.stream().map(order -> OrderMapper.INSTANCE.orderToOrderDTO(order)).collect(Collectors.toList());
+        Optional<List<Order>> orders = Optional.ofNullable(orderRepository.findAllByStatus(orderStatus));
+        orders.orElseThrow(() -> new NoDataException("There no orders with order status " + orderStatus));
+        return orders.get().stream().map(order -> OrderMapper.INSTANCE.orderToOrderDTO(order)).collect(Collectors.toList());
     }
 
 
     @Override
     public OrderDTO getOrderById(Long orderId) {
-        Order order = orderRepository.findByOrderId(orderId);
-        if (order == null) {
-            throw new NoSuchDataExceptionQ("There is no order with id " + orderId);
-        }
-        return OrderMapper.INSTANCE.orderToOrderDTO(order);
+        Optional<Order> order = Optional.ofNullable(orderRepository.findOrderById(orderId));
+        order.orElseThrow(() -> new NoSuchDataException("There is no order with id " + orderId));
+        return OrderMapper.INSTANCE.orderToOrderDTO(order.get());
+    }
+
+    @Override
+    public Long releaseOrder(Long orderId) {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        optionalOrder.orElseThrow(() -> new NoSuchDataException("There is no order with id " + orderId));
+        Order order = optionalOrder.get();
+        order.setStatus(OrderStatus.ONPATH);
+        orderRepository.save(order);
+        return orderId;
+    }
+
+    @Override
+    public Long completeOrder(Long orderId) {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        optionalOrder.orElseThrow(() -> new NoSuchDataException("There is no order with id " + orderId));
+        Order order = optionalOrder.get();
+        order.setStatus(OrderStatus.COMPLETE);
+        orderRepository.save(order);
+        return orderId;
+    }
+
+    @Override
+    public List<OrderDTO> getAllForCouriers() {
+        Optional<List<Order>> orders = Optional.ofNullable(orderRepository.findAllByStatus(String.valueOf(OrderStatus.ONREST)));
+        orders.orElseThrow(() -> new NoDataException("There are no orders without courier "));
+        return orders.get().stream().map(order -> OrderMapper.INSTANCE.orderToOrderDTO(order)).collect(Collectors.toList());
     }
 }

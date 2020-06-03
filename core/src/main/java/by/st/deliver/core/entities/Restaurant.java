@@ -15,23 +15,23 @@ import javax.persistence.*;
 public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "restaurant_id")
-    private Long restaurantId;
+    @Column(name = "id")
+    private Long id;
 
-    @Column(name = "restaurant_name", nullable = false, unique = true)
-    private String restaurantName;
+    @Column(name = "name", nullable = false, unique = true)
+    private String rname;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "restaurant_kitchen_type", nullable = false, unique = true)
-    private KitchenType restaurantKitchenType;
+    @Column(name = "kitchen_type", nullable = false, unique = true)
+    private KitchenType kitchenType;
 
-    @Column(name = "restaurant_phone_number")
-    private String restaurantPhoneNumber;
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
-    @Column(name = "restaurant_address")
-    private String restaurantAddress;
+    @Column(name = "address")
+    private String address;
 
-    @Column(name = "restaurant_rating")
+    @Column(name = "rating")
     private Double rating;
 
 

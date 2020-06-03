@@ -27,20 +27,15 @@ public class ProductInBasketController {
     }
 
     @GetMapping("/question/{product_in_basket_id}")
-//у меня получается 2 get запроса с 1 параметром, как это исправить? я так понял архттектурно что-то не так
     public ResponseEntity<ProductInBasketDTO> getProductsByProductInBasketId(@PathVariable("product_in_basket_id") Long productId) {
         ProductInBasketDTO productInBasketDTO = productInBasketService.getProductInBasketById(productId);
-        if (productInBasketDTO == null) {
-            throw new RuntimeException();//ещё не добавил обработчики
-        }
         return new ResponseEntity<>(productInBasketDTO, new HttpHeaders(), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<ProductInBasketDTO> addProduct(@RequestBody @Valid ProductInBasketDTO productInBasketDTO) {
-        HttpHeaders headers = new HttpHeaders();
         productInBasketService.addProductInBasket(productInBasketDTO);
-        return new ResponseEntity<>(productInBasketDTO, headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(productInBasketDTO, new HttpHeaders(), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{product_id}")

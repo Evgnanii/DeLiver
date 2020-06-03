@@ -23,4 +23,10 @@ public interface OrderService {
     public List<OrderDTO> getAllByOrderStatus(String orderStatus);
 
     public OrderDTO getOrderById(Long orderId);
+
+    public Long releaseOrder(Long orderId);
+
+    public Long completeOrder(Long orderId);
+
+    public List<OrderDTO> getAllForCouriers();
 }

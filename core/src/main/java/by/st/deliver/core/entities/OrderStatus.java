@@ -3,7 +3,9 @@ package by.st.deliver.core.entities;
 public enum OrderStatus {
     ONREST("OnRest"),
     ONPATH("OnPath"),
-    COMPLETE("Complete");
+    COMPLETE("Complete"),
+    WITHOUTCOURIER("WithoutCourier");
+
     private final String value;
 
     private OrderStatus(String value) {
@@ -14,4 +16,4 @@ public enum OrderStatus {
         return value;
     }
 
-    }
+}

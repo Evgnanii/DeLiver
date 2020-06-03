@@ -1,86 +1,104 @@
 package by.st.deliver.core.servicesImpl;
 
 import by.st.deliver.core.dao.ClientRepository;
+import by.st.deliver.core.dao.OrderRepository;
 import by.st.deliver.core.entities.Client;
+import by.st.deliver.core.entities.Order;
+import by.st.deliver.core.entities.OrderStatus;
 import by.st.deliver.core.mappers.ClientMapper;
 import by.st.deliver.core.servicesImpl.exceptions.DataAlreadyExistException;
 import by.st.deliver.core.servicesImpl.exceptions.NoDataException;
-import by.st.deliver.core.servicesImpl.exceptions.NoSuchDataExceptionQ;
+import by.st.deliver.core.servicesImpl.exceptions.NoSuchDataException;
+
+import by.st.deliver.core.servicesImpl.exceptions.OrderAlreadyReleasedException;
 import dto.ClientDTO;
 import dto.ClientDateRangeMessageDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import services.ClientService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class ClientServiceImpl implements ClientService {
     @Autowired
     ClientRepository clientRepository;
+    @Autowired
+    OrderRepository orderRepository;
 
     @Override
     public ClientDTO getClientByClientName(String clientName) {
-        ClientDTO clientDTO = ClientMapper.INSTANCE.clientToClientDTO(clientRepository.findClientByClientName(clientName));
-        if (clientDTO == null) throw new NoSuchDataExceptionQ("There is no client with name " + clientName);
-        return clientDTO;
+        Optional<ClientDTO> clientDTO = Optional.ofNullable(ClientMapper.INSTANCE.clientToClientDTO(clientRepository.findClientByUsername(clientName)));
+        clientDTO.orElseThrow(() -> new NoSuchDataException("There are no client with name " + clientName));
+        return clientDTO.get();
+
     }
 
     @Override
     public Long addClient(ClientDTO clientDTO) {
-        Client client = ClientMapper.INSTANCE.clientDTOToClient(clientDTO);
-        if (clientRepository.findById(clientDTO.getClientId()) != null) {
-            throw new DataAlreadyExistException("Client with id " + clientDTO.getClientId() + " already exists");
-        } else
-            clientRepository.save(client);
-        return clientDTO.getClientId();
+        Optional<Client> client = Optional.ofNullable(ClientMapper.INSTANCE.clientDTOToClient(clientDTO));
+        client.orElseThrow(() -> new DataAlreadyExistException("Client with id " + clientDTO.getId() + " already exists"));
+        clientRepository.save(client.get());
+        return clientDTO.getId();
     }
 
     @Override
     public void removeClient(Long clientId) {
-        if (clientRepository.findById(clientId) == null) {
-            throw new NoSuchDataExceptionQ("There is no user with id " + clientId);
-        } else
-            clientRepository.deleteById(clientId);
+        Optional<Client> client = Optional.ofNullable(clientRepository.getOne(clientId));
+        client.orElseThrow(() -> new NoSuchDataException("There is no client with id " + clientId));
+        clientRepository.deleteById(clientId);
     }
 
     @Override
     public ClientDTO updateClient(ClientDTO clientDTO) {
-        if (clientRepository.findById(clientDTO.getClientId()) == null) {
-            throw new NoSuchDataExceptionQ("There is no user with id " + clientDTO.getClientId());
-        }
-        Client client = ClientMapper.INSTANCE.clientDTOToClient(clientDTO);
-        clientRepository.save(client);
+        Optional<Client> client = Optional.ofNullable(ClientMapper.INSTANCE.clientDTOToClient(clientDTO));
+        client.orElseThrow(() -> new NoSuchDataException("There is no client with id " + clientDTO.getId()));
+        clientRepository.save(client.get());
         return clientDTO;
     }
 
     @Override
     public List<ClientDTO> getClientList() {
-        List<Client> clients = clientRepository.findAll();
-        if (clients.isEmpty()) {
-            throw new NoDataException("There are no clients on server");
-        }
-        List<ClientDTO> clientDTOS = clients.stream().map(s -> ClientMapper.INSTANCE.clientToClientDTO(s)).collect(Collectors.toList());
+        Optional<List<Client>> clients = Optional.ofNullable(clientRepository.findAll());
+        clients.orElseThrow(() -> new NoDataException("There are no clients on server"));
+        List<ClientDTO> clientDTOS = clients.get().stream().map(s -> ClientMapper.INSTANCE.clientToClientDTO(s)).collect(Collectors.toList());
         return clientDTOS;
     }
 
     @Override
     public List<ClientDTO> getClientListFromDateRange(ClientDateRangeMessageDTO clientDateRangeMessageDTO) {
-
-        List<Client> clients = clientRepository.findAllByDateOfBirthBetween(clientDateRangeMessageDTO.getDateRangeStart(), clientDateRangeMessageDTO.getDateRangeEnd());
-        if (clients.isEmpty()) {
-            throw new NoDataException("There are no clients with date of birth in a range between "
-                    + clientDateRangeMessageDTO.getDateRangeStart()
-                    + " and " + clientDateRangeMessageDTO.getDateRangeEnd());
-        }
-        return ClientMapper.INSTANCE.clientListToClientDTOList(clients);
+        Optional<List<Client>> clients = Optional.ofNullable(clientRepository.findAllByDateOfBirthBetween(clientDateRangeMessageDTO.getDateRangeStart(), clientDateRangeMessageDTO.getDateRangeEnd()));
+        clients.orElseThrow(() -> new NoDataException("There are no clients with date of birth in a range between "
+                + clientDateRangeMessageDTO.getDateRangeStart()
+                + " and " + clientDateRangeMessageDTO.getDateRangeEnd()));
+        return ClientMapper.INSTANCE.clientListToClientDTOList(clients.get());
     }
 
     @Override
     public ClientDTO getClientById(Long clientId) {
-        ClientDTO clientDTO = ClientMapper.INSTANCE.clientToClientDTO(clientRepository.findClientByClientId(clientId));
-        if (clientDTO == null) throw new NoSuchDataExceptionQ("There is no client with name " + clientId);
-        return clientDTO;
+        Optional<ClientDTO> clientDTO = Optional.ofNullable(ClientMapper.INSTANCE.clientToClientDTO(clientRepository.findClientById(clientId)));
+        clientDTO.orElseThrow(() -> new NoSuchDataException("There is no client with name " + clientId));
+        return clientDTO.get();
+    }
+
+    @Override
+    public Long payOrder(Long orderId) {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        optionalOrder.orElseThrow(() -> new
+                OrderAlreadyReleasedException("There is no order with id " + orderId));
+
+        Order order = optionalOrder.get();
+        if (order.getStatus().
+                equals(OrderStatus.ONREST)) {
+            order.setStatus(OrderStatus.WITHOUTCOURIER);
+            orderRepository.save(order);
+            return orderId;
+        }
+        throw new
+                OrderAlreadyReleasedException("Order with id " + orderId + " already paid");
     }
 }

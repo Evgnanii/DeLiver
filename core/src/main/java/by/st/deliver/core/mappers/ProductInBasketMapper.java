@@ -12,13 +12,13 @@ public interface ProductInBasketMapper {
     ProductInBasketMapper INSTANCE = Mappers.getMapper(ProductInBasketMapper.class);
 
     @Mappings({
-            @Mapping(source = "orderId", target = "order.orderId"),
-            @Mapping(source = "productId", target = "product.productId")})
+            @Mapping(source = "orderId", target = "order.id"),
+            @Mapping(source = "productId", target = "product.id")})
     ProductInBasket productInBasketDTOToProductInBasket(ProductInBasketDTO productInBasketDTO);
 
     @Mappings({
-            @Mapping(source = "order.orderId", target = "orderId"),
-            @Mapping(source = "product.productId", target = "productId")})
+            @Mapping(source = "order.id", target = "orderId"),
+            @Mapping(source = "product.id", target = "productId")})
     ProductInBasketDTO productInBasketToProductInBasketDTO(ProductInBasket productInBasket);
 
 

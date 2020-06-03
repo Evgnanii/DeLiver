@@ -10,23 +10,23 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "comment")
+@Table(name = "comments")
 public class Comment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_id")
-    private Long commentId;
+    @Column(name = "id")
+    private Long id;
 
-    @Column(name = "comment_text")
-    private String commentText;
+    @Column(name = "text")
+    private String text;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "author_id")
+    @JoinColumn(name = "client_id")
     private Client client;
 
-    @Column(name = "comment_rating")
-    private Double commentRating;
+    @Column(name = "rating")
+    private Double rating;
+
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")

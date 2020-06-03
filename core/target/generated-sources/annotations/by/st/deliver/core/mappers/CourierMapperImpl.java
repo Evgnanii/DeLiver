@@ -7,7 +7,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-05-28T14:16:15+0300",
+    date = "2020-06-02T23:10:55+0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.6 (JetBrains s.r.o)"
 )
 public class CourierMapperImpl implements CourierMapper {
@@ -20,11 +20,10 @@ public class CourierMapperImpl implements CourierMapper {
 
         CourierDTO courierDTO = new CourierDTO();
 
-        courierDTO.setCourierStatus( courierCourierStatusValue( courier ) );
-        courierDTO.setCourierId( courier.getCourierId() );
-        courierDTO.setCourierFirstName( courier.getCourierFirstName() );
-        courierDTO.setCourierSecondName( courier.getCourierSecondName() );
-        courierDTO.setCourierRating( courier.getCourierRating() );
+        courierDTO.setStatus( courierStatusValue( courier ) );
+        courierDTO.setId( courier.getId() );
+        courierDTO.setPassword( courier.getPassword() );
+        courierDTO.setRating( courier.getRating() );
 
         return courierDTO;
     }
@@ -37,26 +36,25 @@ public class CourierMapperImpl implements CourierMapper {
 
         Courier courier = new Courier();
 
-        courier.setCourierId( courierDTO.getCourierId() );
-        courier.setCourierFirstName( courierDTO.getCourierFirstName() );
-        courier.setCourierSecondName( courierDTO.getCourierSecondName() );
-        courier.setCourierRating( courierDTO.getCourierRating() );
-        if ( courierDTO.getCourierStatus() != null ) {
-            courier.setCourierStatus( Enum.valueOf( CourierStatus.class, courierDTO.getCourierStatus() ) );
+        courier.setId( courierDTO.getId() );
+        courier.setPassword( courierDTO.getPassword() );
+        courier.setRating( courierDTO.getRating() );
+        if ( courierDTO.getStatus() != null ) {
+            courier.setStatus( Enum.valueOf( CourierStatus.class, courierDTO.getStatus() ) );
         }
 
         return courier;
     }
 
-    private String courierCourierStatusValue(Courier courier) {
+    private String courierStatusValue(Courier courier) {
         if ( courier == null ) {
             return null;
         }
-        CourierStatus courierStatus = courier.getCourierStatus();
-        if ( courierStatus == null ) {
+        CourierStatus status = courier.getStatus();
+        if ( status == null ) {
             return null;
         }
-        String value = courierStatus.getValue();
+        String value = status.getValue();
         if ( value == null ) {
             return null;
         }

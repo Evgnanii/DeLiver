@@ -6,46 +6,50 @@
 
     <changeSet id="1" author="evgnanii">
         <createTable tableName="clients">
-            <column name="client_id" type="BIGINT" autoIncrement="true">
+            <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="client_name" type="varchar(50)"/>
-            <column name="client_email" type="varchar(100)">
+            <column name="password" type="varchar(100)"></column>
+            <column name="name" type="varchar(50)"/>
+            <column name="email" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="client_phone_number" type="varchar(200)"/>
-            <column name="client_address" type="varchar(200)"></column>
+            <column name="phone_number" type="varchar(200)"/>
+            <column name="address" type="varchar(200)"></column>
             <column name="privilege_level" type="varchar(15)"></column>
             <column name="date_of_birth" type="DATE"></column>
         </createTable>
     </changeSet>
     <changeSet id="2" author="evgnanii">
         <insert tableName="clients">
-            <column name="client_name" value="Evgnanii"/>
-            <column name="client_email" value="nikon@gmail.com"/>
-            <column name="client_phone_number" value="131231"/>
-            <column name="client_address" value="Улица Вульковская"/>
+            <column name="name" value="Evgnanii"/>
+            <column name="email" value="nikon@gmail.com"/>
+            <column name="phone_number" value="131231"/>
+            <column name="address" value="Улица Вульковская"/>
             <column name="privilege_level" value="SILVER"/>
             <column name="date_of_birth" value="1998-03-14"/>
+            <column name="password" value="Evgnanii"></column>
         </insert>
 
     </changeSet>
     <changeSet id="3" author="evgnanii">
         <insert tableName="clients">
-            <column name="client_name" value="Andrey"/>
-            <column name="client_email" value="andr@gmail.com"/>
-            <column name="client_phone_number" value="231231"/>
-            <column name="client_address" value="Улица Вульковская 99, кв 19"/>
+            <column name="password" value="Andrey"></column>
+            <column name="name" value="Andrey"/>
+            <column name="email" value="andr@gmail.com"/>
+            <column name="phone_number" value="231231"/>
+            <column name="address" value="Улица Вульковская 99, кв 19"/>
             <column name="privilege_level" value="GOLD"/>
             <column name="date_of_birth" value="2000-03-15"/>
         </insert>
         <insert tableName="clients">
-            <column name="client_name" value="PizzaLiker221"/>
-            <column name="client_email" value="eqrt@gmail.com"/>
-            <column name="client_phone_number" value="324212"/>
-            <column name="client_address" value="Улица Московская 12, кв 2"/>
+            <column name="name" value="PizzaLiker221"/>
+            <column name="email" value="eqrt@gmail.com"/>
+            <column name="phone_number" value="324212"/>
+            <column name="address" value="Улица Московская 12, кв 2"/>
             <column name="privilege_level" value="DIAMOND"/>
             <column name="date_of_birth" value="1993-12-12"/>
+            <column name="password" value="PizzaLiker221"></column>
         </insert>
     </changeSet>
 
