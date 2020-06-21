@@ -1,7 +1,7 @@
 package by.st.deliver.app;
 
-import by.st.deliver.core.CoreConfiguration;
-import by.st.deliver.rest.controllers.RestConfiguration;
+import by.st.deliver.core.config.CoreConfiguration;
+import by.st.deliver.rest.config.RestConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;

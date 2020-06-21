@@ -11,8 +11,12 @@ import by.st.deliver.core.servicesImpl.exceptions.*;
 import dto.CourierDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import services.CourierService;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -66,22 +70,27 @@ public class CourierServiceImpl implements CourierService {
     }
 
     @Override
-    public List<CourierDTO> getCouriersByRating(Long minRating) {
+    public List<CourierDTO> getCouriersByRating(Long minRating, Integer page) {
         if (minRating >= 5 || minRating <= 1) {
             throw new MinRatingException("Rating must be lower than 5 and higher than 1 ");
         }
-        Optional<List<Courier>> couriers = Optional.ofNullable(courierRepository.findAllByRatingGreaterThanOrderByRating(minRating));
+
+        Optional<List<Courier>> couriers = Optional.ofNullable(courierRepository.findAllByRatingGreaterThanOrderByRating(minRating,PageRequest.of(page, 10)));
         couriers.orElseThrow(() -> new NoDataException("There are no couriers with rating more than " + minRating));
         return couriers.get().stream().map(courier -> CourierMapper.INSTANCE.courierToCourierDTO(courier)).collect(Collectors.toList());
     }
 
     @Override
     public Long getOrder(Long orderId, Long courierId) {
+        Optional<Courier> courier = courierRepository.findById(courierId);
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
-        optionalOrder.orElseThrow(()-> new NoSuchDataException("There are no order with id "+ orderId));
+        optionalOrder.orElseThrow(() -> new NoSuchDataException("There are no order with id " + orderId));
         Order order = optionalOrder.get();
         if (order.getStatus().equals(OrderStatus.WITHOUTCOURIER)) {
+            order.setCourier(courier.get());
+            orderRepository.save(order);
             return orderId;
+
         } else throw new OrderAlreadyReleasedException("Order with id " + orderId + " alreadyReleased");
     }
 }

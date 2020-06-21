@@ -16,6 +16,7 @@ import dto.ClientDateRangeMessageDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import services.ClientService;
 
@@ -70,8 +71,9 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<ClientDTO> getClientListFromDateRange(ClientDateRangeMessageDTO clientDateRangeMessageDTO) {
-        Optional<List<Client>> clients = Optional.ofNullable(clientRepository.findAllByDateOfBirthBetween(clientDateRangeMessageDTO.getDateRangeStart(), clientDateRangeMessageDTO.getDateRangeEnd()));
+    public List<ClientDTO> getClientListFromDateRange(ClientDateRangeMessageDTO clientDateRangeMessageDTO, Integer page) {
+        Optional<List<Client>> clients = Optional.ofNullable(clientRepository
+                .findAllByDateOfBirthBetween(clientDateRangeMessageDTO.getDateRangeStart(), clientDateRangeMessageDTO.getDateRangeEnd(), PageRequest.of(page, 5)));
         clients.orElseThrow(() -> new NoDataException("There are no clients with date of birth in a range between "
                 + clientDateRangeMessageDTO.getDateRangeStart()
                 + " and " + clientDateRangeMessageDTO.getDateRangeEnd()));

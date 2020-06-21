@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
+import java.util.List;
 
 
 @Data
@@ -39,5 +40,7 @@ public class Client {
     @Column(name = "privilege_level", nullable = false, columnDefinition = "enum('DIAMOND', 'SILVER', 'GOLD')")
     private PrivilegeLevel privilegeLevel;
 
+    @OneToMany
+    private List<Order> orderList;
 
 }

@@ -30,5 +30,9 @@ public class ProductInBasket {
     @Column(name = "count")
     private Integer count;
 
-
+    public ProductInBasket(Order order, Product product, Integer count) {
+        this.order = order;
+        this.product = product;
+        this.count = count;
+    }
 }

@@ -9,9 +9,11 @@ import by.st.deliver.core.servicesImpl.exceptions.NoDataException;
 import by.st.deliver.core.servicesImpl.exceptions.NoSuchDataException;
 import dto.OrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import services.OrderService;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,10 +24,24 @@ public class OrderServiceImpl implements OrderService {
     OrderRepository orderRepository;
 
     @Override
-    public List<OrderDTO> getOrderByClientId(Long clientId) {
-        Optional<List<Order>> orders = Optional.ofNullable(orderRepository.findAllByClientId(clientId));
+    public List<OrderDTO> getOrderByClientId(Long clientId, Integer page) {
+        Optional<List<Order>> orders = Optional.ofNullable(orderRepository.findAllByClientId(clientId, PageRequest.of(page, 5)));
         orders.orElseThrow(() -> new NoDataException("There are no orders from client with id " + clientId));
         return orders.get().stream().map(order -> OrderMapper.INSTANCE.orderToOrderDTO(order)).collect(Collectors.toList());
+    }
+
+    @Override
+    public OrderDTO getCurrentOrderByClientId(Long clientId, Integer page) {
+        Optional<List<Order>> optionalOrders = Optional.ofNullable(orderRepository.findAllByClientId(clientId, PageRequest.of(page,5)));
+        optionalOrders.orElseThrow(() -> new NoDataException("There are no orders from client with id " + clientId));
+        List<Order> orders = optionalOrders.get();
+        Order order = orders
+                .stream()
+                .filter(order1 -> order1.getStatus().equals("OnRest"))
+                .findAny()
+                .orElseThrow(() -> new NoSuchDataException("There is no current order"));
+
+        return OrderMapper.INSTANCE.orderToOrderDTO(order);
     }
 
     @Override
@@ -35,6 +51,7 @@ public class OrderServiceImpl implements OrderService {
             throw new DataAlreadyExistException("Order with id " + orderDTO.getId() + " already exists");
         }
         orderRepository.save(OrderMapper.INSTANCE.orderDTOToOrder(orderDTO));
+
         return orderDTO.getId();
     }
 
@@ -46,15 +63,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDTO> getOrderByRestaurantId(Long restaurantId) {
-        Optional<List<Order>> orders = Optional.ofNullable(orderRepository.findAllByRestaurantId(restaurantId));
+    public List<OrderDTO> getOrderByRestaurantId(Long restaurantId, Integer page) {
+        Optional<List<Order>> orders = Optional.ofNullable(orderRepository.findAllByRestaurantId(restaurantId, PageRequest.of(page, 5)));
         orders.orElseThrow(() -> new NoDataException("There are no orders from restaurant with id " + restaurantId));
         return orders.get().stream().map(order -> OrderMapper.INSTANCE.orderToOrderDTO(order)).collect(Collectors.toList());
     }
 
     @Override
-    public List<OrderDTO> getOrderByCourierId(Long courierId) {
-        Optional<List<Order>> orders = Optional.ofNullable(orderRepository.findAllByCourierId(courierId));
+    public List<OrderDTO> getOrderByCourierId(Long courierId, Integer page) {
+        Optional<List<Order>> orders = Optional.ofNullable(orderRepository.findAllByCourierId(courierId, PageRequest.of(page, 5)));
         orders.orElseThrow(() -> new NoDataException("There no orders for courier with id " + courierId));
         return orders.get().stream().map(order -> OrderMapper.INSTANCE.orderToOrderDTO(order)).collect(Collectors.toList());
     }
@@ -67,8 +84,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDTO> getAllByOrderStatus(String orderStatus) {
-        Optional<List<Order>> orders = Optional.ofNullable(orderRepository.findAllByStatus(orderStatus));
+    public List<OrderDTO> getAllByOrderStatus(String orderStatus, Integer page) {
+        Optional<List<Order>> orders = Optional.ofNullable(orderRepository.findAllByStatus(orderStatus, PageRequest.of(page, 5)));
         orders.orElseThrow(() -> new NoDataException("There no orders with order status " + orderStatus));
         return orders.get().stream().map(order -> OrderMapper.INSTANCE.orderToOrderDTO(order)).collect(Collectors.toList());
     }
@@ -102,8 +119,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDTO> getAllForCouriers() {
-        Optional<List<Order>> orders = Optional.ofNullable(orderRepository.findAllByStatus(String.valueOf(OrderStatus.ONREST)));
+    public List<OrderDTO> getAllForCouriers(Integer page) {
+        Optional<List<Order>> orders = Optional.ofNullable(orderRepository.findAllByStatus(String.valueOf(OrderStatus.ONREST), PageRequest.of(page, 5)));
         orders.orElseThrow(() -> new NoDataException("There are no orders without courier "));
         return orders.get().stream().map(order -> OrderMapper.INSTANCE.orderToOrderDTO(order)).collect(Collectors.toList());
     }

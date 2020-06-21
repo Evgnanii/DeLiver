@@ -11,6 +11,6 @@ public interface RestaurantService {
     public RestaurantDTO updateRestaurant(RestaurantDTO restaurantDTO);
     public List<RestaurantDTO> getRestaurantList();
     public RestaurantDTO getRestaurantById(Long restaurantId);
-    public List<RestaurantDTO> getRestaurantByKitchenType(String kitchenType);
+    public List<RestaurantDTO> getRestaurantByKitchenType(String kitchenType, Integer page);
 
 }

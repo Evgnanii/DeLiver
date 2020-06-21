@@ -8,6 +8,7 @@ import by.st.deliver.core.servicesImpl.exceptions.NoDataException;
 import by.st.deliver.core.servicesImpl.exceptions.NoSuchDataException;
 import dto.RestaurantDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import services.RestaurantService;
 
@@ -63,8 +64,8 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<RestaurantDTO> getRestaurantByKitchenType(String kitchenType) {
-        Optional<List<Restaurant>> restaurants = Optional.ofNullable(restaurantRepository.findAllByKitchenType(kitchenType));
+    public List<RestaurantDTO> getRestaurantByKitchenType(String kitchenType, Integer page) {
+        Optional<List<Restaurant>> restaurants = Optional.ofNullable(restaurantRepository.findAllByKitchenType(kitchenType, PageRequest.of(page, 5)));
         restaurants.orElseThrow(() -> new NoDataException("There are no restaurants with this kitchen type"));
         List<RestaurantDTO> restaurantDTOS = restaurants.get().stream().map(restaurant -> RestaurantMapper.INSTANCE.restaurantToRestaurantDTO(restaurant)).collect(Collectors.toList());
         return restaurantDTOS;

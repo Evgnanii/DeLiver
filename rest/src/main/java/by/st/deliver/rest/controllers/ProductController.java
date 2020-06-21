@@ -19,9 +19,9 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @GetMapping("/{restaurant_id}")
-    public ResponseEntity<List<ProductDTO>> getAllRestaurantProducts(@PathVariable("restaurant_id") Long restaurantId) {
-        List<ProductDTO> productDTOList =  productService.getProductListByRestaurantId(restaurantId);
+    @GetMapping("/{page}/{restaurant_id}")
+    public ResponseEntity<List<ProductDTO>> getAllRestaurantProducts(@PathVariable("restaurant_id") Long restaurantId, @PathVariable("page") Integer page) {
+        List<ProductDTO> productDTOList = productService.getProductListByRestaurantId(restaurantId, page);
         return new ResponseEntity<>(productDTOList, new HttpHeaders(), HttpStatus.OK);
     }
 
@@ -38,8 +38,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/{product_id}")
-    public ResponseEntity<ProductInBasketDTO> deleteProduct(@PathVariable("product_id") Long productId){
+    public ResponseEntity<ProductInBasketDTO> deleteProduct(@PathVariable("product_id") Long productId) {
         productService.removeProduct(productId);
-        return new ResponseEntity<> (new  HttpHeaders(), HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NO_CONTENT);
     }
 }

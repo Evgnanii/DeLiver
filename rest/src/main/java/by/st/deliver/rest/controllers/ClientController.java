@@ -39,16 +39,16 @@ public class ClientController {
 
     }
 
-    @GetMapping
-    public ResponseEntity<List<ClientDTO>> getClientsByDateRange(@RequestBody @Valid ClientDateRangeMessageDTO clientDateRangeMessageDTO) {
-        List<ClientDTO> clientDTOS = clientService.getClientListFromDateRange(clientDateRangeMessageDTO);
-            return new ResponseEntity<>(clientDTOS, new HttpHeaders(), HttpStatus.OK);
+    @GetMapping("/page/{page}")
+    public ResponseEntity<List<ClientDTO>> getClientsByDateRange(@RequestBody @Valid ClientDateRangeMessageDTO clientDateRangeMessageDTO, @PathVariable("page") Integer page) {
+        List<ClientDTO> clientDTOS = clientService.getClientListFromDateRange(clientDateRangeMessageDTO, page);
+        return new ResponseEntity<>(clientDTOS, new HttpHeaders(), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<ClientDTO> addClient(@RequestBody @Valid ClientDTO clientDTO) {
-            clientService.addClient(clientDTO);
-            return new ResponseEntity<>(clientDTO, new HttpHeaders(), HttpStatus.CREATED);
+        clientService.addClient(clientDTO);
+        return new ResponseEntity<>(clientDTO, new HttpHeaders(), HttpStatus.CREATED);
 
     }
 
@@ -61,6 +61,6 @@ public class ClientController {
     @PutMapping
     public ResponseEntity<ClientDTO> updateClient(@RequestBody @Valid ClientDTO clientDTO) {
         ClientDTO newClientDTO = clientService.updateClient(clientDTO);
-            return new ResponseEntity<>(newClientDTO, new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(newClientDTO, new HttpHeaders(), HttpStatus.OK);
     }
 }

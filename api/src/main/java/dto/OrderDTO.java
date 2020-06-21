@@ -28,5 +28,4 @@ public class OrderDTO {
     private Double totalCost;
     @NotNull
     private String status;
-
 }

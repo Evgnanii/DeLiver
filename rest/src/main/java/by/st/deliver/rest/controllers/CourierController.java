@@ -31,9 +31,9 @@ public class CourierController {
         return new ResponseEntity<>(courierDTOS, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @GetMapping("/rating/{min_rating}")
-    public ResponseEntity<List<CourierDTO>> addCouriers(@PathVariable("min_rating") Long minRating) {
-        List<CourierDTO> courierDTOS = courierService.getCouriersByRating(minRating);
+    @GetMapping("/rating/{page}/{min_rating}")
+    public ResponseEntity<List<CourierDTO>> addCouriers(@PathVariable("min_rating") Long minRating, @PathVariable("page") Integer page) {
+        List<CourierDTO> courierDTOS = courierService.getCouriersByRating(minRating, page);
         return new ResponseEntity<>(courierDTOS, new HttpHeaders(), HttpStatus.OK);
     }
 

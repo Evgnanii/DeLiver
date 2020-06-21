@@ -21,27 +21,27 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
-    @GetMapping("/byclient/{client_id}")
-    public ResponseEntity<List<OrderDTO>> getOrderByClientId(@PathVariable("client_id") Long clientId) {
-        List<OrderDTO> orderDTO = orderService.getOrderByClientId(clientId);
+    @GetMapping("/byclient/{page}/{client_id}")
+    public ResponseEntity<List<OrderDTO>> getOrderByClientId(@PathVariable("client_id") Long clientId,@PathVariable("page") Integer page) {
+        List<OrderDTO> orderDTO = orderService.getOrderByClientId(clientId,page);
         return new ResponseEntity<>(orderDTO, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @GetMapping("/byrestaurant/{restaurant_id}")
-    public ResponseEntity<List<OrderDTO>> getClientByRestaurant(@PathVariable("restaurant_id") Long restaurantId) {
-        List<OrderDTO> orderDTO = orderService.getOrderByRestaurantId(restaurantId);
+    @GetMapping("/byrestaurant/{page}/{restaurant_id}")
+    public ResponseEntity<List<OrderDTO>> getClientByRestaurant(@PathVariable("restaurant_id") Long restaurantId,@PathVariable("page") Integer page) {
+        List<OrderDTO> orderDTO = orderService.getOrderByRestaurantId(restaurantId,page);
         return new ResponseEntity<>(orderDTO, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @GetMapping("/bystatus/{status}")
-    public ResponseEntity<List<OrderDTO>> getOrderByStatus(@PathVariable("status") String status) {
-        List<OrderDTO> orderDTO = orderService.getAllByOrderStatus(status);
+    @GetMapping("/bystatus/{page}/{status}")
+    public ResponseEntity<List<OrderDTO>> getOrderByStatus(@PathVariable("status") String status,@PathVariable("page") Integer page) {
+        List<OrderDTO> orderDTO = orderService.getAllByOrderStatus(status,page);
         return new ResponseEntity<>(orderDTO, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @GetMapping("/bycourier/{courier_id}")
-    public ResponseEntity<List<OrderDTO>> getClientByCourier(@PathVariable("courier_id") Long courierId) {
-        List<OrderDTO> orderDTO = orderService.getOrderByCourierId(courierId);
+    @GetMapping("/bycourier/{page}/{courier_id}")
+    public ResponseEntity<List<OrderDTO>> getClientByCourier(@PathVariable("courier_id") Long courierId,@PathVariable("page") Integer page) {
+        List<OrderDTO> orderDTO = orderService.getOrderByCourierId(courierId,page);
         return new ResponseEntity<>(orderDTO, new HttpHeaders(), HttpStatus.OK);
     }
 

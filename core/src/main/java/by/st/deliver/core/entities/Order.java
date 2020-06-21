@@ -3,7 +3,7 @@ package by.st.deliver.core.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import java.util.List;
 import javax.persistence.*;
 
 
@@ -38,6 +38,9 @@ public class Order {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private OrderStatus status;
+
+    @OneToMany
+    private List<ProductInBasket> productInBasketList;
 
 
 }

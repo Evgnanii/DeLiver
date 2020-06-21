@@ -1,4 +1,4 @@
-package by.st.deliver.rest.controllers;
+package by.st.deliver.rest.config;
 
 
 import org.springframework.context.annotation.ComponentScan;

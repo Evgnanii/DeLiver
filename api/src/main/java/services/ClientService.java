@@ -18,7 +18,7 @@ public interface ClientService {
 
     public List<ClientDTO> getClientList();
 
-    public List<ClientDTO> getClientListFromDateRange(ClientDateRangeMessageDTO clientDateRangeMessageDTO);
+    public List<ClientDTO> getClientListFromDateRange(ClientDateRangeMessageDTO clientDateRangeMessageDTO, Integer page);
 
     public ClientDTO getClientById(Long clientId);
 

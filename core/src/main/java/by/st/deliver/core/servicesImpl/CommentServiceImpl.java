@@ -1,6 +1,5 @@
 package by.st.deliver.core.servicesImpl;
 
-import by.st.deliver.core.dao.CommentRepository;
 import by.st.deliver.core.dao.CommentRepositoryHibernate;
 import by.st.deliver.core.entities.Comment;
 import by.st.deliver.core.mappers.CommentMapper;

@@ -1,7 +1,10 @@
 package by.st.deliver.core.servicesImpl;
 
+import by.st.deliver.core.dao.OrderRepository;
 import by.st.deliver.core.dao.ProductRepository;
+import by.st.deliver.core.entities.Order;
 import by.st.deliver.core.entities.Product;
+import by.st.deliver.core.entities.ProductInBasket;
 import by.st.deliver.core.mappers.ProductMapper;
 import by.st.deliver.core.servicesImpl.exceptions.DataAlreadyExistException;
 import by.st.deliver.core.servicesImpl.exceptions.NoDataException;
@@ -10,6 +13,7 @@ import by.st.deliver.core.servicesImpl.exceptions.NoSuchDataException;
 import dto.ProductDTO;
 import dto.ProductDiscountUpdateMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import services.ProductService;
 
@@ -21,6 +25,51 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductRepository productRepository;
+    OrderRepository orderRepository;
+
+    @Override
+    public Long changeProductCount(Long orderId, Long productId, Integer count) {
+        Optional<Order> orderOptional = orderRepository.findById(orderId);
+        orderOptional.orElseThrow(() -> new NoSuchDataException("There is no order with id " + orderId));
+        Order order = orderOptional.get();
+        ProductInBasket productInBasket = order.getProductInBasketList()
+                .stream()
+                .filter(productInBasket1 -> productInBasket1.getProduct().getId() == productId)
+                .findAny()
+                .orElseThrow(() -> new NoSuchDataException("There is no product with id " + productId));
+        order.getProductInBasketList().removeIf(productInBasket1 -> productInBasket1.getProduct().getId() == productId);
+        productInBasket.setCount(count);
+        order.getProductInBasketList().add(productInBasket);
+        orderRepository.save(order);
+        return productId;
+    }
+
+    @Override
+    public Long addProductToOrder(ProductDTO productDTO, Long orderId, Integer count) {
+        Optional<Order> orderOptional = orderRepository.findById(orderId);
+        orderOptional.orElseThrow(() -> new NoSuchDataException("There is no order with id " + orderId));
+        Product product = ProductMapper.INSTANCE.productDtoToProduct(productDTO);
+        Order order = orderOptional.get();
+        order.getProductInBasketList().add(new ProductInBasket(order, product, count));
+        order.setTotalCost(order.getTotalCost() + (product.getCost() * count));
+        orderRepository.save(order);
+        return productDTO.getId();
+    }
+
+    @Override
+    public void removeProductFromOrder(Long orderId, Long productId) {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        optionalOrder.orElseThrow(() -> new NoSuchDataException("Order with id " + orderId + " no exists"));
+        Order order = optionalOrder.get();
+        ProductInBasket productInBasket = order.getProductInBasketList()
+                .stream()
+                .filter(productInBasket1 -> productInBasket1.getProduct().getId() == productId)
+                .findAny().orElseThrow(() -> new NoSuchDataException("There is no product with id " + productId + "in this order"));
+        order.getProductInBasketList().remove(productInBasket);
+        order.setTotalCost(order.getTotalCost() - (productInBasket.getProduct().getCost() * productInBasket.getCount()));
+        orderRepository.save(order);
+    }
+
 
     @Override
     public Long addProduct(ProductDTO productDTO) {
@@ -30,6 +79,16 @@ public class ProductServiceImpl implements ProductService {
         }
         productRepository.save(ProductMapper.INSTANCE.productDtoToProduct(productDTO));
         return productDTO.getId();
+    }
+
+    @Override
+    public void addProductsToOrder(List<ProductDTO> productDTOList, Long orderId) {
+        Optional<Order> orderOptional = orderRepository.findById(orderId);
+        orderOptional.orElseThrow(() -> new NoSuchDataException("There is no order with id " + orderId));
+        List<Product> products = productDTOList.stream().map(productDTO -> ProductMapper.INSTANCE.productDtoToProduct(productDTO)).collect(Collectors.toList());
+        Order order = orderOptional.get();
+        products.stream().map(product -> order.getProductInBasketList().add(new ProductInBasket(order, product, 1)));
+        orderRepository.save(order);
     }
 
     @Override
@@ -58,10 +117,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDTO> getProductListByRestaurantId(Long restaurantId) {
-        Optional<List<Product>> products = Optional.ofNullable(productRepository.findAllByRestaurantId(restaurantId));
+    public List<ProductDTO> getProductListByRestaurantId(Long restaurantId, Integer page) {
+        Optional<List<Product>> products = Optional.ofNullable(productRepository.findAllByRestaurantId(restaurantId, PageRequest.of(page, 5)));
         products.orElseThrow(() -> new NoDataException("There are no product in restaurant with id " + restaurantId));
         List<ProductDTO> productDTOS = products.get().stream().map(s -> ProductMapper.INSTANCE.productToProductDTO(s)).collect(Collectors.toList());
         return productDTOS;
     }
+
+
 }

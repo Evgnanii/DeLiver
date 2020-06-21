@@ -30,9 +30,9 @@ public class RestaurantController {
         return new ResponseEntity<>(restaurantDTOS, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @GetMapping("/{kitchen_type}")
-    public ResponseEntity<List<RestaurantDTO>> restaurantsByKitchenType(@PathVariable("kitchen_type") String kitchenType) {
-        List<RestaurantDTO> restaurantDTOS = restaurantService.getRestaurantByKitchenType(kitchenType);
+    @GetMapping("/{page}/{kitchen_type}")
+    public ResponseEntity<List<RestaurantDTO>> restaurantsByKitchenType(@PathVariable("kitchen_type") String kitchenType,@PathVariable("page") Integer page) {
+        List<RestaurantDTO> restaurantDTOS = restaurantService.getRestaurantByKitchenType(kitchenType, page);
         return new ResponseEntity<>(restaurantDTOS, new HttpHeaders(), HttpStatus.OK);
     }
 
