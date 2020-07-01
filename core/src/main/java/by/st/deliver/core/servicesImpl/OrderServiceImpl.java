@@ -13,10 +13,10 @@ import by.st.deliver.core.servicesImpl.exceptions.OrderAlreadyReleasedException;
 import dto.OrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import services.OrderService;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -46,12 +46,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Long addOrder(OrderDTO orderDTO) {
         Optional<Order> order = orderRepository.findById(orderDTO.getId());
-        if (!order.isPresent()) {
+        if (!order.equals(Optional.empty())) {
             throw new DataAlreadyExistException("Order with id " + orderDTO.getId() + " already exists");
         }
-        orderRepository.save(OrderMapper.INSTANCE.orderDTOToOrder(orderDTO));
 
-        return orderDTO.getId();
+        Order order1 = orderRepository.save(OrderMapper.INSTANCE.orderDTOToOrder(orderDTO));
+
+        return order1.getId();
     }
 
     @Override
@@ -153,4 +154,6 @@ public class OrderServiceImpl implements OrderService {
             return orderId;
         } else throw new OrderAlreadyReleasedException("Order with id " + orderId + " alreadyReleased");
     }
+
+
 }

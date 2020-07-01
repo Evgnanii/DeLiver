@@ -32,25 +32,26 @@ public class ProductServiceImpl implements ProductService {
         Optional<Order> orderOptional = orderRepository.findById(orderId);
         orderOptional.orElseThrow(() -> new NoSuchDataException("There is no order with id " + orderId));
         Order order = orderOptional.get();
-        ProductInBasket productInBasket = order.getProductInBasketList()
+        ProductInBasket productInBasket = order.getProductInBasket()
                 .stream()
                 .filter(productInBasket1 -> productInBasket1.getProduct().getId() == productId)
                 .findAny()
                 .orElseThrow(() -> new NoSuchDataException("There is no product with id " + productId));
-        order.getProductInBasketList().removeIf(productInBasket1 -> productInBasket1.getProduct().getId() == productId);
+        order.getProductInBasket().removeIf(productInBasket1 -> productInBasket1.getProduct().getId() == productId);
         productInBasket.setCount(count);
-        order.getProductInBasketList().add(productInBasket);
+        order.getProductInBasket().add(productInBasket);
         orderRepository.save(order);
         return productId;
     }
 
     @Override
     public Long addProductToOrder(ProductDTO productDTO, Long orderId, Integer count) {
+        System.out.println(orderRepository.findById(orderId));
         Optional<Order> orderOptional = orderRepository.findById(orderId);
         orderOptional.orElseThrow(() -> new NoSuchDataException("There is no order with id " + orderId));
         Product product = ProductMapper.INSTANCE.productDtoToProduct(productDTO);
         Order order = orderOptional.get();
-        order.getProductInBasketList().add(new ProductInBasket(order, product, count));
+        order.getProductInBasket().add(new ProductInBasket(order, product, count));
         order.setTotalCost(order.getTotalCost() + (product.getCost() * count));
         orderRepository.save(order);
         return productDTO.getId();
@@ -61,11 +62,11 @@ public class ProductServiceImpl implements ProductService {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
         optionalOrder.orElseThrow(() -> new NoSuchDataException("Order with id " + orderId + " no exists"));
         Order order = optionalOrder.get();
-        ProductInBasket productInBasket = order.getProductInBasketList()
+        ProductInBasket productInBasket = order.getProductInBasket()
                 .stream()
                 .filter(productInBasket1 -> productInBasket1.getProduct().getId() == productId)
                 .findAny().orElseThrow(() -> new NoSuchDataException("There is no product with id " + productId + "in this order"));
-        order.getProductInBasketList().remove(productInBasket);
+        order.getProductInBasket().remove(productInBasket);
         order.setTotalCost(order.getTotalCost() - (productInBasket.getProduct().getCost() * productInBasket.getCount()));
         orderRepository.save(order);
     }
@@ -87,7 +88,7 @@ public class ProductServiceImpl implements ProductService {
         orderOptional.orElseThrow(() -> new NoSuchDataException("There is no order with id " + orderId));
         List<Product> products = productDTOList.stream().map(productDTO -> ProductMapper.INSTANCE.productDtoToProduct(productDTO)).collect(Collectors.toList());
         Order order = orderOptional.get();
-        products.stream().map(product -> order.getProductInBasketList().add(new ProductInBasket(order, product, 1)));
+        products.stream().map(product -> order.getProductInBasket().add(new ProductInBasket(order, product, 1)));
         orderRepository.save(order);
     }
 

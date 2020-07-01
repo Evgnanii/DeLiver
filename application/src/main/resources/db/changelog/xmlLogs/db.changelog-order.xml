@@ -12,7 +12,7 @@
             <column name="courier_id" type="BIGINT"/>
             <column name="restaurant_id" type="BIGINT"/>
             <column name="client_id" type="BIGINT"/>
-            <column name="basket_id" type="BIGINT"/>
+
             <column name="status" type="varchar(30)"/>
             <column name="total_cost" type="double"/>
         </createTable>
@@ -22,7 +22,7 @@
             <column name="courier_id" value="2"></column>
             <column name="restaurant_id" value="2"></column>
             <column name="client_id" value="2"></column>
-            <column name="basket_id" value="3"></column>
+
             <column name="status" value="ONPATH"></column>
             <column name="total_cost" value="3200"></column>
         </insert>
@@ -30,7 +30,7 @@
             <column name="courier_id" value="1"></column>
             <column name="restaurant_id" value="3"></column>
             <column name="client_id" value="3"></column>
-            <column name="basket_id" value="1"></column>
+
             <column name="status" value="COMPLETE"></column>
             <column name="total_cost" value="10000"></column>
         </insert>
@@ -38,7 +38,7 @@
             <column name="courier_id" value="3"></column>
             <column name="restaurant_id" value="1"></column>
             <column name="client_id" value="1"></column>
-            <column name="basket_id" value="2"></column>
+
             <column name="status" value="ONREST"></column>
             <column name="total_cost" value="1200"></column>
         </insert>

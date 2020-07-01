@@ -37,6 +37,12 @@ public class ProductController {
         return new ResponseEntity<>(productDTO, new HttpHeaders(), HttpStatus.CREATED);
     }
 
+    @PostMapping("{order_id}/{count}")
+    public ResponseEntity<ProductDTO> addProductToOrder(@PathVariable("order_id") Long orderId, @PathVariable("count") Integer count, @RequestBody @Valid ProductDTO productDTO) {
+        productService.addProductToOrder(productDTO, orderId, count);
+        return new ResponseEntity<>(productDTO, new HttpHeaders(), HttpStatus.CREATED);
+    }
+
     @DeleteMapping("/{product_id}")
     public ResponseEntity<ProductInBasketDTO> deleteProduct(@PathVariable("product_id") Long productId) {
         productService.removeProduct(productId);
