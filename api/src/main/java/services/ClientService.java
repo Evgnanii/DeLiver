@@ -22,8 +22,5 @@ public interface ClientService {
 
     public ClientDTO getClientById(Long clientId);
 
-    public Long payOrder(Long orderId);
-
-
 
 }

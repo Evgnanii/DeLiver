@@ -86,21 +86,4 @@ public class ClientServiceImpl implements ClientService {
         clientDTO.orElseThrow(() -> new NoSuchDataException("There is no client with name " + clientId));
         return clientDTO.get();
     }
-
-    @Override
-    public Long payOrder(Long orderId) {
-        Optional<Order> optionalOrder = orderRepository.findById(orderId);
-        optionalOrder.orElseThrow(() -> new
-                OrderAlreadyReleasedException("There is no order with id " + orderId));
-
-        Order order = optionalOrder.get();
-        if (order.getStatus().
-                equals(OrderStatus.ONREST)) {
-            order.setStatus(OrderStatus.WITHOUTCOURIER);
-            orderRepository.save(order);
-            return orderId;
-        }
-        throw new
-                OrderAlreadyReleasedException("Order with id " + orderId + " already paid");
-    }
 }

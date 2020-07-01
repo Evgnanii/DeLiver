@@ -8,7 +8,7 @@ public interface OrderService {
 
     public List<OrderDTO> getOrderByClientId(Long clientId, Integer page);
 
-    OrderDTO getCurrentOrderByClientId(Long clientId, Integer page);
+    OrderDTO getCurrentOrderByClientId(Long clientId);
 
     public Long addOrder(OrderDTO orderDTO);
 
@@ -29,4 +29,8 @@ public interface OrderService {
     public Long completeOrder(Long orderId);
 
     public List<OrderDTO> getAllForCouriers( Integer page);
+
+    Long payOrder(Long orderId);
+
+    Long takeOrder(Long orderId, Long courierId);
 }

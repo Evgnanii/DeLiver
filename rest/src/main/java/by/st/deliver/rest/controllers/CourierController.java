@@ -55,4 +55,5 @@ public class CourierController {
         CourierDTO newCourierDTO = courierService.updateCourier(courierDTO);
         return new ResponseEntity<>(newCourierDTO, new HttpHeaders(), HttpStatus.OK);
     }
+
 }

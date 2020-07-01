@@ -80,17 +80,5 @@ public class CourierServiceImpl implements CourierService {
         return couriers.get().stream().map(courier -> CourierMapper.INSTANCE.courierToCourierDTO(courier)).collect(Collectors.toList());
     }
 
-    @Override
-    public Long getOrder(Long orderId, Long courierId) {
-        Optional<Courier> courier = courierRepository.findById(courierId);
-        Optional<Order> optionalOrder = orderRepository.findById(orderId);
-        optionalOrder.orElseThrow(() -> new NoSuchDataException("There are no order with id " + orderId));
-        Order order = optionalOrder.get();
-        if (order.getStatus().equals(OrderStatus.WITHOUTCOURIER)) {
-            order.setCourier(courier.get());
-            orderRepository.save(order);
-            return orderId;
 
-        } else throw new OrderAlreadyReleasedException("Order with id " + orderId + " alreadyReleased");
-    }
 }

@@ -1,12 +1,15 @@
 package by.st.deliver.core.servicesImpl;
 
+import by.st.deliver.core.dao.CourierRepository;
 import by.st.deliver.core.dao.OrderRepository;
+import by.st.deliver.core.entities.Courier;
 import by.st.deliver.core.entities.Order;
 import by.st.deliver.core.entities.OrderStatus;
 import by.st.deliver.core.mappers.OrderMapper;
 import by.st.deliver.core.servicesImpl.exceptions.DataAlreadyExistException;
 import by.st.deliver.core.servicesImpl.exceptions.NoDataException;
 import by.st.deliver.core.servicesImpl.exceptions.NoSuchDataException;
+import by.st.deliver.core.servicesImpl.exceptions.OrderAlreadyReleasedException;
 import dto.OrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +25,8 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
     @Autowired
     OrderRepository orderRepository;
+    @Autowired
+    CourierRepository courierRepository;
 
     @Override
     public List<OrderDTO> getOrderByClientId(Long clientId, Integer page) {
@@ -31,16 +36,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDTO getCurrentOrderByClientId(Long clientId, Integer page) {
-        Optional<List<Order>> optionalOrders = Optional.ofNullable(orderRepository.findAllByClientId(clientId, PageRequest.of(page,5)));
+    public OrderDTO getCurrentOrderByClientId(Long clientId) {
+        Optional<Order> optionalOrders = Optional.ofNullable(orderRepository.findOrderByClientIdAndStatus(clientId, String.valueOf(OrderStatus.ONREST)));
         optionalOrders.orElseThrow(() -> new NoDataException("There are no orders from client with id " + clientId));
-        List<Order> orders = optionalOrders.get();
-        Order order = orders
-                .stream()
-                .filter(order1 -> order1.getStatus().equals("OnRest"))
-                .findAny()
-                .orElseThrow(() -> new NoSuchDataException("There is no current order"));
-
+        Order order = optionalOrders.get();
         return OrderMapper.INSTANCE.orderToOrderDTO(order);
     }
 
@@ -123,5 +122,35 @@ public class OrderServiceImpl implements OrderService {
         Optional<List<Order>> orders = Optional.ofNullable(orderRepository.findAllByStatus(String.valueOf(OrderStatus.ONREST), PageRequest.of(page, 5)));
         orders.orElseThrow(() -> new NoDataException("There are no orders without courier "));
         return orders.get().stream().map(order -> OrderMapper.INSTANCE.orderToOrderDTO(order)).collect(Collectors.toList());
+    }
+
+    @Override
+    public Long payOrder(Long orderId) {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        optionalOrder.orElseThrow(() -> new
+                OrderAlreadyReleasedException("There is no order with id " + orderId));
+
+        Order order = optionalOrder.get();
+        if (order.getStatus().
+                equals(OrderStatus.ONREST)) {
+            order.setStatus(OrderStatus.WITHOUTCOURIER);
+            orderRepository.save(order);
+            return orderId;
+        }
+        throw new
+                OrderAlreadyReleasedException("Order with id " + orderId + " already paid");
+    }
+
+    @Override
+    public Long takeOrder(Long orderId, Long courierId) {
+        Optional<Courier> courier = courierRepository.findById(courierId);
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        optionalOrder.orElseThrow(() -> new NoSuchDataException("There are no order with id " + orderId));
+        Order order = optionalOrder.get();
+        if (order.getStatus().equals(OrderStatus.WITHOUTCOURIER)) {
+            order.setCourier(courier.get());
+            orderRepository.save(order);
+            return orderId;
+        } else throw new OrderAlreadyReleasedException("Order with id " + orderId + " alreadyReleased");
     }
 }
