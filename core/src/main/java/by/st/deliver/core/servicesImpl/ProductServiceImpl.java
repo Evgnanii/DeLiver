@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductRepository productRepository;
+    @Autowired
     OrderRepository orderRepository;
 
     @Override
@@ -46,11 +47,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Long addProductToOrder(ProductDTO productDTO, Long orderId, Integer count) {
-        System.out.println(orderRepository.findById(orderId));
-        Optional<Order> orderOptional = orderRepository.findById(orderId);
-        orderOptional.orElseThrow(() -> new NoSuchDataException("There is no order with id " + orderId));
+        Order order = orderRepository.findOrderById(orderId).orElseThrow(() -> new NoSuchDataException("There is no order with id " + orderId));
+        System.out.println(productDTO.toString());
         Product product = ProductMapper.INSTANCE.productDtoToProduct(productDTO);
-        Order order = orderOptional.get();
         order.getProductInBasket().add(new ProductInBasket(order, product, count));
         order.setTotalCost(order.getTotalCost() + (product.getCost() * count));
         orderRepository.save(order);
@@ -101,7 +100,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO updateProductDiscount(ProductDiscountUpdateMessage productDiscountUpdateMessage) {
-        Optional<Product> optionalProduct = Optional.ofNullable(productRepository.findProductById(productDiscountUpdateMessage.getProductId()));
+        Optional<Product> optionalProduct = productRepository.findProductById(productDiscountUpdateMessage.getProductId());
         optionalProduct.orElseThrow(() -> new NoSuchDataException("There is no product with id " + productDiscountUpdateMessage.getProductId()));
         Product product = optionalProduct.get();
         product.setDiscount(productDiscountUpdateMessage.getDiscount());
@@ -112,7 +111,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO getProductByProductId(Long id) {
-        Optional<ProductDTO> productDTO = Optional.ofNullable(ProductMapper.INSTANCE.productToProductDTO(productRepository.findProductById(id)));
+        Optional<ProductDTO> productDTO = Optional.ofNullable(ProductMapper.INSTANCE.productToProductDTO(productRepository.findProductById(id).get()));
         productDTO.orElseThrow(() -> new NoSuchDataException("There is no product with id " + id));
         return productDTO.get();
     }

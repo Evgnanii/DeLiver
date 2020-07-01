@@ -55,8 +55,9 @@ public class Order {
     @Column(name = "status")
     private OrderStatus status;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn()
+
     private List<ProductInBasket> productInBasket;
 
 

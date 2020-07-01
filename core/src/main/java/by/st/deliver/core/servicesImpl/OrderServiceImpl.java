@@ -93,7 +93,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDTO getOrderById(Long orderId) {
-        Optional<Order> order = Optional.ofNullable(orderRepository.findOrderById(orderId));
+        Optional<Order> order = orderRepository.findOrderById(orderId);
         order.orElseThrow(() -> new NoSuchDataException("There is no order with id " + orderId));
         return OrderMapper.INSTANCE.orderToOrderDTO(order.get());
     }

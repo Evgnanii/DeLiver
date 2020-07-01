@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findAllByRestaurantId(Long restaurantId, Pageable pageable);
@@ -13,7 +14,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findAllByClientId(Long clientId, Pageable pageable);
 
-    Order findOrderById(Long orderId);
+    Optional<Order> findOrderById(Long orderId);
 
     Order findOrderByClientIdAndStatus(Long orderId, String orderStatus);
 

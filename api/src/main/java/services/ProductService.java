@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface ProductService {
 
-    Long changeProductCount(Long orderId, Long productId, Integer count);
+    public Long changeProductCount(Long orderId, Long productId, Integer count);
 
-    Long addProductToOrder(ProductDTO productDTO, Long orderId, Integer count);
+    public Long addProductToOrder(ProductDTO productDTO, Long orderId, Integer count);
 
-    void removeProductFromOrder(Long orderId, Long productId);
+    public void removeProductFromOrder(Long orderId, Long productId);
 
     public Long addProduct(ProductDTO productDTO);
 
@@ -19,10 +19,9 @@ public interface ProductService {
 
     public void removeProduct(Long id);
 
-    ProductDTO updateProductDiscount(ProductDiscountUpdateMessage productDiscountUpdateMessage);
+    public ProductDTO updateProductDiscount(ProductDiscountUpdateMessage productDiscountUpdateMessage);
 
-    ProductDTO getProductByProductId(Long id);
 
-    List<ProductDTO> getProductListByRestaurantId(Long restaurantId, Integer page);
+    public List<ProductDTO> getProductListByRestaurantId(Long restaurantId, Integer page);
 
 }
